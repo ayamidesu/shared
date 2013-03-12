@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using CoreComponents.TileEngine;
+using CoreComponents.CharacterClasses;
+using CoreComponents.SpriteClasses;
 
 namespace CoreComponents.WorldClasses
 {
@@ -14,6 +16,8 @@ namespace CoreComponents.WorldClasses
         #region Field Region
 
         readonly TileMap map;
+        readonly List<Character> characters;
+        readonly List<ItemSprite> chests;
 
         #endregion
 
@@ -23,6 +27,14 @@ namespace CoreComponents.WorldClasses
         {
             get { return map; }
         }
+        public List<Character> Characters
+        {
+            get { return characters; }
+        }
+        public List<ItemSprite> Chests
+        {
+            get { return chests; }
+        }
         
         #endregion
 
@@ -31,6 +43,8 @@ namespace CoreComponents.WorldClasses
         public Level(TileMap tileMap)
         {
             map = tileMap;
+            characters = new List<Character>();
+            chests = new List<ItemSprite>();
         }
         #endregion
 
@@ -38,10 +52,18 @@ namespace CoreComponents.WorldClasses
 
         public void Update(GameTime gameTime)
         {
+            foreach (Character character in characters)
+                character.Update(gameTime);
+            foreach (ItemSprite sprite in chests)
+                sprite.Update(gameTime);
         }
-        public void Draw(SpriteBatch spiteBatch, Camera camera)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
         {
-           map.Draw(spiteBatch, camera);
+            map.Draw(spriteBatch, camera);
+            foreach (Character character in characters)
+                character.Draw(gameTime, spriteBatch);
+            foreach (ItemSprite sprite in chests)
+                sprite.Draw(gameTime, spriteBatch);
         }
 
         #endregion

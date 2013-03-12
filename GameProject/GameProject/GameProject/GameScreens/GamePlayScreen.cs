@@ -13,6 +13,7 @@ using CoreComponents.TileEngine;
 using GameProject.Components;
 using CoreComponents.SpriteClasses;
 using CoreComponents.WorldClasses;
+using CoreComponents.ItemClasses;
 
 namespace GameProject.GameScreens
 {
@@ -25,6 +26,7 @@ namespace GameProject.GameScreens
         Player player;
         AnimatedSprite sprite;
         World world;
+        Texture2D containers;
 
         #endregion
 
@@ -48,23 +50,8 @@ namespace GameProject.GameScreens
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        protected void createWorld()
         {
-
-            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char2");
-            Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
-
-            Animation animation = new Animation(3, 50, 50, 150, 0);
-            animations.Add(AnimationKey.Down, animation);
-            animation = new Animation(3, 50, 50, 0, 0);
-            animations.Add(AnimationKey.Left, animation);
-            animation = new Animation(3, 50, 50, 0, 0);
-            animations.Add(AnimationKey.Right, animation);
-            animation = new Animation(3, 50, 50, 150, 0);
-            animations.Add(AnimationKey.Up, animation);
-            sprite = new AnimatedSprite(spriteSheet, animations);
-            player = new Player(GameRef, sprite);
-            base.LoadContent();
 
             Texture2D tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\planktileset");
             Tileset tileset1 = new Tileset(tilesetTexture, 6, 1, 40, 40);
@@ -112,8 +99,55 @@ namespace GameProject.GameScreens
 
             map = new TileMap(tilesets, mapLayers);
             Level level = new Level(map);
+
+            ChestData chestData = new ChestData();
+
+            chestData.Name = "Some Chest";
+            chestData.MinGold = 10;
+            chestData.MaxGold = 101;
+
+            Chest chest = new Chest(chestData);
+
+            BaseSprite chestSprite = new BaseSprite(
+            containers,
+            new Rectangle(0, 0, 40, 40),
+            new Point(10, 10));
+
+            ItemSprite itemSprite = new ItemSprite(
+            chest,
+            chestSprite);
+
+            level.Chests.Add(itemSprite);
+
             world.Levels.Add(level);
             world.CurrentLevel = 0;
+        }
+
+        protected void createPlayer()
+        {
+            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char2");
+            Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
+
+            Animation animation = new Animation(3, 50, 50, 150, 0);
+            animations.Add(AnimationKey.Down, animation);
+            animation = new Animation(3, 50, 50, 0, 0);
+            animations.Add(AnimationKey.Left, animation);
+            animation = new Animation(3, 50, 50, 0, 0);
+            animations.Add(AnimationKey.Right, animation);
+            animation = new Animation(3, 50, 50, 150, 0);
+            animations.Add(AnimationKey.Up, animation);
+            sprite = new AnimatedSprite(spriteSheet, animations);
+            player = new Player(GameRef, sprite);
+            
+        }
+
+        protected override void LoadContent()
+        {
+
+            base.LoadContent();
+            containers = Game.Content.Load<Texture2D>(@"ItemSprites\chest");
+            createPlayer();
+            createWorld();
         }
 
         public override void Update(GameTime gameTime)
@@ -136,7 +170,7 @@ namespace GameProject.GameScreens
             //map.Draw(GameRef.SpriteBatch, player.Camera);
             //sprite.Draw(gameTime, GameRef.SpriteBatch, player.Camera);
 
-            world.DrawLevel(GameRef.SpriteBatch, player.Camera);
+            world.DrawLevel(gameTime, GameRef.SpriteBatch, player.Camera);
             player.Draw(gameTime, GameRef.SpriteBatch);
             base.Draw(gameTime);
             GameRef.SpriteBatch.End();

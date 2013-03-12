@@ -125,10 +125,6 @@
       <Project>{A6A4296E-5CC5-42CB-9F30-B610A6DCAAC9}</Project>
       <Name>CoreComponents</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RpgLibrary\RpgLibrary.csproj">
-      <Project>{4C1B58E2-FE4B-4D02-8E88-A61A258C8472}</Project>
-      <Name>RpgLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GameProjectContent\GameProjectContent.contentproj">
       <Name>GameProjectContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>

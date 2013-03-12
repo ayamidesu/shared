@@ -92,17 +92,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterClasses\Attributes.cs" />
+    <Compile Include="CharacterClasses\Character.cs" />
+    <Compile Include="CharacterClasses\Entity.cs" />
+    <Compile Include="CharacterClasses\MainCharacter.cs" />
+    <Compile Include="CharacterClasses\StatusBar.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlManager.cs" />
     <Compile Include="Controls\Label.cs" />
     <Compile Include="Controls\LinkLabel.cs" />
     <Compile Include="Controls\PictureBox.cs" />
+    <Compile Include="ItemClasses\Armor.cs" />
+    <Compile Include="ItemClasses\BaseItem.cs" />
+    <Compile Include="ItemClasses\Chest.cs" />
+    <Compile Include="ItemClasses\ChestData.cs" />
+    <Compile Include="ItemClasses\ItemManager.cs" />
+    <Compile Include="ItemClasses\Shield.cs" />
+    <Compile Include="ItemClasses\Weapon.cs" />
     <Compile Include="SpriteClasses\AnimatedSprite.cs" />
     <Compile Include="SpriteClasses\Animation.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameStateManager.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpriteClasses\BaseSprite.cs" />
+    <Compile Include="SpriteClasses\ItemSprite.cs" />
     <Compile Include="TileEngine\Camera.cs" />
     <Compile Include="TileEngine\Engine.cs" />
     <Compile Include="TileEngine\MapLayer.cs" />
@@ -114,12 +128,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RpgLibrary\RpgLibrary.csproj">
-      <Project>{4C1B58E2-FE4B-4D02-8E88-A61A258C8472}</Project>
-      <Name>RpgLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

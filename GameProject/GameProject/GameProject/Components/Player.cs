@@ -100,7 +100,7 @@ namespace GameProject.Components
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
-            sprite.Draw(gameTime, spriteBatch, camera);
+            sprite.Draw(gameTime, spriteBatch);
         }
 
         #endregion

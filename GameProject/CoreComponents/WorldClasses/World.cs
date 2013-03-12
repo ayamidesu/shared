@@ -7,8 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-using RpgLibrary.CharacterClasses;
-using RpgLibrary.ItemClasses;
+using CoreComponents.CharacterClasses;
+using CoreComponents.ItemClasses;
 
 using CoreComponents.TileEngine;
 using CoreComponents.SpriteClasses;
@@ -82,9 +82,9 @@ namespace CoreComponents.WorldClasses
             base.Draw(gameTime);
         }
 
-        public void DrawLevel(SpriteBatch spriteBatch, Camera camera)
+        public void DrawLevel(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
         {
-            levels[currentLevel].Draw(spriteBatch, camera);
+            levels[currentLevel].Draw(gameTime, spriteBatch, camera);
         }
 
         #endregion
