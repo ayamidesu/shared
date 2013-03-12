@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CharacterClasses\Attributes.cs" />
+    <Compile Include="CharacterClasses\Character.cs" />
+    <Compile Include="CharacterClasses\MainCharacter.cs" />
+    <Compile Include="CharacterClasses\StatusBar.cs" />
+    <Compile Include="ItemClasses\Armor.cs" />
+    <Compile Include="ItemClasses\BaseItem.cs" />
+    <Compile Include="ItemClasses\ItemManager.cs" />
+    <Compile Include="ItemClasses\Shield.cs" />
+    <Compile Include="ItemClasses\Weapon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

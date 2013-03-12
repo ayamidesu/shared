@@ -109,9 +109,17 @@
     <Compile Include="TileEngine\Tile.cs" />
     <Compile Include="TileEngine\TileMap.cs" />
     <Compile Include="TileEngine\TileSet.cs" />
+    <Compile Include="WorldClasses\Level.cs" />
+    <Compile Include="WorldClasses\World.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RpgLibrary\RpgLibrary.csproj">
+      <Project>{4C1B58E2-FE4B-4D02-8E88-A61A258C8472}</Project>
+      <Name>RpgLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

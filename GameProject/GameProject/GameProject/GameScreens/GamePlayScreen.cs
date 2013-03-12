@@ -12,6 +12,7 @@ using CoreComponents;
 using CoreComponents.TileEngine;
 using GameProject.Components;
 using CoreComponents.SpriteClasses;
+using CoreComponents.WorldClasses;
 
 namespace GameProject.GameScreens
 {
@@ -23,6 +24,7 @@ namespace GameProject.GameScreens
         TileMap map;
         Player player;
         AnimatedSprite sprite;
+        World world;
 
         #endregion
 
@@ -34,7 +36,7 @@ namespace GameProject.GameScreens
         public GamePlayScreen(Game game, GameStateManager manager)
             : base(game, manager)
         {
-            player = new Player(game);
+            world = new World(game, GameRef.ScreenRectangle);
         }
 
         #endregion
@@ -49,30 +51,30 @@ namespace GameProject.GameScreens
         protected override void LoadContent()
         {
 
-            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char");
+            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char2");
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
 
-            Animation animation = new Animation(3, 32, 32, 0, 0);
+            Animation animation = new Animation(3, 50, 50, 150, 0);
             animations.Add(AnimationKey.Down, animation);
-            animation = new Animation(3, 32, 32, 0, 32);
+            animation = new Animation(3, 50, 50, 0, 0);
             animations.Add(AnimationKey.Left, animation);
-            animation = new Animation(3, 32, 32, 0, 64);
+            animation = new Animation(3, 50, 50, 0, 0);
             animations.Add(AnimationKey.Right, animation);
-            animation = new Animation(3, 32, 32, 0, 96);
+            animation = new Animation(3, 50, 50, 150, 0);
             animations.Add(AnimationKey.Up, animation);
             sprite = new AnimatedSprite(spriteSheet, animations);
-
+            player = new Player(GameRef, sprite);
             base.LoadContent();
 
             Texture2D tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\planktileset");
             Tileset tileset1 = new Tileset(tilesetTexture, 6, 1, 40, 40);
 
-//            tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\planktileset");
-        //    Tileset tileset2 = new Tileset(tilesetTexture, 6, 1, 40, 40);
+            tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\planktileset");
+            Tileset tileset2 = new Tileset(tilesetTexture, 6, 1, 40, 40);
 
             List<Tileset> tilesets = new List<Tileset>();
             tilesets.Add(tileset1);
-        //    tilesets.Add(tileset2);
+            tilesets.Add(tileset2);
 
             MapLayer layer = new MapLayer(40, 40);
 
@@ -100,63 +102,25 @@ namespace GameProject.GameScreens
                 splatter.SetTile(x, y, tile);
             }
 
-            //splatter.SetTile(1, 0, new Tile(1, 0));
-            //splatter.SetTile(2, 0, new Tile(1, 0));
-            //splatter.SetTile(3, 0, new Tile(1, 0));
+            splatter.SetTile(1, 0, new Tile(1, 1));
+            splatter.SetTile(2, 0, new Tile(2, 1));
+            splatter.SetTile(3, 0, new Tile(3, 1));
 
             List<MapLayer> mapLayers = new List<MapLayer>();
             mapLayers.Add(layer);
             mapLayers.Add(splatter);
 
             map = new TileMap(tilesets, mapLayers);
+            Level level = new Level(map);
+            world.Levels.Add(level);
+            world.CurrentLevel = 0;
         }
 
         public override void Update(GameTime gameTime)
         {
             player.Update(gameTime);
-            sprite.Update(gameTime);
 
-            Vector2 motion = new Vector2();
-
-            if (InputHandler.KeyDown(Keys.W) ||
-                InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
-            {
-                sprite.CurrentAnimation = AnimationKey.Up;
-                motion.Y = -1;
-            }
-            else if (InputHandler.KeyDown(Keys.S) ||
-                InputHandler.ButtonDown(Buttons.LeftThumbstickDown, PlayerIndex.One))
-            {
-                sprite.CurrentAnimation = AnimationKey.Down;
-                motion.Y = 1;
-            }
-
-            if (InputHandler.KeyDown(Keys.A) ||
-                InputHandler.ButtonDown(Buttons.LeftThumbstickLeft, PlayerIndex.One))
-            {
-                sprite.CurrentAnimation = AnimationKey.Left;
-                motion.X = -1;
-            }
-            else if (InputHandler.KeyDown(Keys.D) ||
-                InputHandler.ButtonDown(Buttons.LeftThumbstickRight, PlayerIndex.One))
-            {
-                sprite.CurrentAnimation = AnimationKey.Right;
-                motion.X = 1;
-            }
-
-            if (motion != Vector2.Zero)
-            {
-                sprite.IsAnimating = true;
-                motion.Normalize();
-
-                sprite.Position += motion * sprite.Speed;
-                sprite.LockToMap();
-                player.Camera.LockToSprite(sprite);
-            }
-            else
-            {
-                sprite.IsAnimating = false;
-            }
+            
             base.Update(gameTime);
         }
 
@@ -169,8 +133,11 @@ namespace GameProject.GameScreens
             null,
             null,
             player.Camera.Transformation);
-            map.Draw(GameRef.SpriteBatch, player.Camera);
-            sprite.Draw(gameTime, GameRef.SpriteBatch, player.Camera);
+            //map.Draw(GameRef.SpriteBatch, player.Camera);
+            //sprite.Draw(gameTime, GameRef.SpriteBatch, player.Camera);
+
+            world.DrawLevel(GameRef.SpriteBatch, player.Camera);
+            player.Draw(gameTime, GameRef.SpriteBatch);
             base.Draw(gameTime);
             GameRef.SpriteBatch.End();
         }

@@ -77,16 +77,28 @@ namespace CoreComponents.TileEngine
 
         public void Draw(SpriteBatch spriteBatch, Camera camera)
         {
+            Point cameraPoint = Engine.VectorToCell(camera.Position);
+            Point viewPoint = Engine.VectorToCell(
+            new Vector2(
+             (camera.Position.X + camera.ViewportRectangle.Width),
+             (camera.Position.Y + camera.ViewportRectangle.Height)));
+            
             Rectangle destination = new Rectangle(0, 0, Engine.TileWidth, Engine.TileHeight);
             Tile tile;
 
+            Point min = new Point();
+            Point max = new Point();
+            min.X = Math.Max(0, cameraPoint.X - 1);
+            min.Y = Math.Max(0, cameraPoint.Y - 1);
+            max.X = Math.Min(viewPoint.X + 1, mapWidth);
+            max.Y = Math.Min(viewPoint.Y + 1, mapHeight);
+
             foreach (MapLayer layer in mapLayers)
             {
-                for (int y = 0; y < layer.Height; y++)
+                for (int y = min.Y; y < max.Y; y++)
                 {
                     destination.Y = y * Engine.TileHeight;
-
-                    for (int x = 0; x < layer.Width; x++)
+                    for (int x = min.X; x < max.X; x++)
                     {
                         tile = layer.GetTile(x, y);
 
