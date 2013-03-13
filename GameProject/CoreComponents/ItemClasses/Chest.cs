@@ -5,12 +5,13 @@ using System.Text;
 
 namespace CoreComponents.ItemClasses
 {
-    public class Chest: BaseItem
+    public class Chest : InterItem
     {
         #region Field Region
 
         static Random Random = new Random();
         ChestData chestData;
+        //float collisionRadius;
 
         #endregion
 
@@ -24,6 +25,12 @@ namespace CoreComponents.ItemClasses
         {
             get { return chestData.IsTrapped; }
         }
+
+      /*  public override float CollisionRadius
+        {
+            get { return collisionRadius; }
+        }*/
+
         public int Gold
         {
             get
@@ -42,7 +49,7 @@ namespace CoreComponents.ItemClasses
         #region Constructor Region
 
         public Chest(ChestData data)
-            : base(data.Name, "", 0, 0)
+            : base(data.Name, "")
         {
             this.chestData = data;
         }
@@ -65,6 +72,8 @@ namespace CoreComponents.ItemClasses
             data.KeyName = chestData.KeyName;
             data.MinGold = chestData.MinGold;
             data.MaxGold = chestData.MaxGold;
+            data.Size = chestData.Size;
+            int radius = data.Size + 50;
             foreach (KeyValuePair<string, string> pair in chestData.ItemCollection)
                 data.ItemCollection.Add(pair.Key, pair.Value);
             Chest chest = new Chest(data);

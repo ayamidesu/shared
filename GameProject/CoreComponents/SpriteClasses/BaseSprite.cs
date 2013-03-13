@@ -109,5 +109,7 @@ namespace CoreComponents.SpriteClasses
             Color.White);
         }
         #endregion
+
+        
     }
 }

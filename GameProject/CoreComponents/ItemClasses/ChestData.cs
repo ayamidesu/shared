@@ -10,6 +10,7 @@ namespace CoreComponents.ItemClasses
        
         public string Name;
         public string TextureName;
+        public int Size;
         public bool IsTrapped;
         public bool IsLocked;
         public string TrapName;

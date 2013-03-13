@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using CoreComponents;
 using CoreComponents.TileEngine;
 using CoreComponents.SpriteClasses;
+using CoreComponents.WorldClasses;
 
 namespace GameProject.Components
 {
@@ -19,7 +20,7 @@ namespace GameProject.Components
 
         Camera camera;
         Game1 gameRef;
-        readonly AnimatedSprite sprite;
+        AnimatedSprite sprite;
 
         #endregion
 
@@ -50,12 +51,22 @@ namespace GameProject.Components
 
         #region Method Region
 
-        public void Update(GameTime gameTime)
+        //is it okay to send the level? for collission and interaction detection
+        public void Update(GameTime gameTime, Level level)
         {
             camera.Update(gameTime);
             sprite.Update(gameTime);
             Vector2 motion = new Vector2();
 
+         /*   if (InputHandler.KeyDown(Keys.Enter) ||
+                  InputHandler.ButtonDown(Buttons.B, PlayerIndex.One))
+            {
+                int ChestId = (level).CheckChestRadius(sprite.Position);
+                if (ChestId >= 0)
+                {
+                    //sth, states can't be pushed here
+                }
+            }*/
             if (InputHandler.KeyDown(Keys.W) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickUp, PlayerIndex.One))
             {
@@ -96,6 +107,7 @@ namespace GameProject.Components
                 sprite.IsAnimating = false;
             }
         }
+
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {

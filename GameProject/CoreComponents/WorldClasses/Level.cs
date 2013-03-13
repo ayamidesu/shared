@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using CoreComponents.TileEngine;
 using CoreComponents.CharacterClasses;
 using CoreComponents.SpriteClasses;
+using CoreComponents.ItemClasses;
 
 namespace CoreComponents.WorldClasses
 {
@@ -50,6 +51,7 @@ namespace CoreComponents.WorldClasses
 
         #region Method Region
 
+
         public void Update(GameTime gameTime)
         {
             foreach (Character character in characters)
@@ -67,5 +69,18 @@ namespace CoreComponents.WorldClasses
         }
 
         #endregion
+
+        public int CheckChestRadius(Vector2 position)
+        {
+            for (int i = 0; i < chests.Count; i++)
+            {
+                if(chests[i].CheckRadius(position))
+                {
+                    return i;
+                }
+                
+            }
+            return -1;
+        }
     }
 }

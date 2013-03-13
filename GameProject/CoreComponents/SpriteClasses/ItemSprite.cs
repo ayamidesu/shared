@@ -16,7 +16,9 @@ namespace CoreComponents.SpriteClasses
         #region Field Region
 
         BaseSprite sprite;
+        InterItem initem;
         BaseItem item;
+        float collisionRadius; //not sure where collission variable should go, subject to change
 
         #endregion
 
@@ -29,13 +31,29 @@ namespace CoreComponents.SpriteClasses
         {
             get { return item; }
         }
+        public InterItem InItem
+        {
+            get { return initem; }
+        }
+        public virtual float CollisionRadius
+        {
+            get { return collisionRadius; }
+            set { collisionRadius = value; }
+        }
         #endregion
 
         #region Constructor Region
-        public ItemSprite(BaseItem item, BaseSprite sprite)
+        public ItemSprite(BaseItem item, BaseSprite sprite, float Radius)
         {
             this.item = item;
             this.sprite = sprite;
+            this.collisionRadius = Radius;
+        }
+        public ItemSprite(InterItem item, BaseSprite sprite, float Radius)
+        {
+            this.initem = item;
+            this.sprite = sprite;
+            this.collisionRadius = Radius;
         }
         #endregion
 
@@ -52,5 +70,17 @@ namespace CoreComponents.SpriteClasses
             sprite.Draw(gameTime, spriteBatch);
         }
         #endregion
+
+        public bool CheckRadius(Vector2 position)
+        {
+            float distance = Vector2.Distance(
+                 sprite.Position,
+                 position);
+            if (distance < collisionRadius)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

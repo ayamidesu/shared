@@ -106,6 +106,7 @@
     <Compile Include="ItemClasses\BaseItem.cs" />
     <Compile Include="ItemClasses\Chest.cs" />
     <Compile Include="ItemClasses\ChestData.cs" />
+    <Compile Include="ItemClasses\InterItem.cs" />
     <Compile Include="ItemClasses\ItemManager.cs" />
     <Compile Include="ItemClasses\Shield.cs" />
     <Compile Include="ItemClasses\Weapon.cs" />

@@ -24,7 +24,6 @@ namespace GameProject.GameScreens
         Engine engine = new Engine(40, 40);
         TileMap map;
         Player player;
-        AnimatedSprite sprite;
         World world;
         Texture2D containers;
 
@@ -111,11 +110,11 @@ namespace GameProject.GameScreens
             BaseSprite chestSprite = new BaseSprite(
             containers,
             new Rectangle(0, 0, 40, 40),
-            new Point(10, 10));
-
+            new Point(2, 2));
+            float radius = 50;
             ItemSprite itemSprite = new ItemSprite(
             chest,
-            chestSprite);
+            chestSprite,radius);
 
             level.Chests.Add(itemSprite);
 
@@ -136,7 +135,7 @@ namespace GameProject.GameScreens
             animations.Add(AnimationKey.Right, animation);
             animation = new Animation(3, 50, 50, 150, 0);
             animations.Add(AnimationKey.Up, animation);
-            sprite = new AnimatedSprite(spriteSheet, animations);
+            AnimatedSprite sprite = new AnimatedSprite(spriteSheet, animations);
             player = new Player(GameRef, sprite);
             
         }
@@ -152,11 +151,13 @@ namespace GameProject.GameScreens
 
         public override void Update(GameTime gameTime)
         {
-            player.Update(gameTime);
-
+            player.Update(gameTime,world.Levels[world.CurrentLevel]);
+            HandleInteraction();
             
             base.Update(gameTime);
         }
+
+       
 
         public override void Draw(GameTime gameTime)
         {
@@ -167,8 +168,6 @@ namespace GameProject.GameScreens
             null,
             null,
             player.Camera.Transformation);
-            //map.Draw(GameRef.SpriteBatch, player.Camera);
-            //sprite.Draw(gameTime, GameRef.SpriteBatch, player.Camera);
 
             world.DrawLevel(gameTime, GameRef.SpriteBatch, player.Camera);
             player.Draw(gameTime, GameRef.SpriteBatch);
@@ -178,7 +177,24 @@ namespace GameProject.GameScreens
 
         #endregion
 
-        #region Abstract Method Region
+        #region Other Methods Region
+
+        protected void HandleInteraction()
+        {
+            if (InputHandler.KeyDown(Keys.Enter) ||
+                  InputHandler.ButtonDown(Buttons.B, PlayerIndex.One))
+            {
+                int ChestId=(world.Levels[world.CurrentLevel]).CheckChestRadius(player.Sprite.Position);
+                if(ChestId>=0)
+                {
+                    Game.Window.Title = "near chest";
+                    //better to push states here, so handle interaction in the gameplay screen
+                }
+                else
+                    Game.Window.Title = "not near chest"; 
+            }
+        }
+
         #endregion
     }
 }
