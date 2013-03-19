@@ -72,9 +72,10 @@ namespace CoreComponents.SpriteClasses
 
         #region Constructor Region
 
-        public AnimatedSprite(Texture2D sprite, Dictionary<AnimationKey, Animation> animation)
+        public AnimatedSprite(Texture2D sprite, Dictionary<AnimationKey, Animation> animation, Vector2 Position)
         {
-             texture = sprite;
+            position = Position;
+            texture = sprite;
              animations = new Dictionary<AnimationKey, Animation>();
              foreach (AnimationKey key in animation.Keys)
                 animations.Add(key, (Animation)animation[key].Clone());

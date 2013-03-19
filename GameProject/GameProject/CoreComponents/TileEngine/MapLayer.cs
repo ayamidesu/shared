@@ -42,7 +42,7 @@ namespace CoreComponents.TileEngine
             {
                 for (int x = 0; x < width; x++)
                 {
-                    layer[y, x] = new Tile(0, 0);
+                    layer[y, x] = new Tile(-1, -1);
                 }
             }
         }

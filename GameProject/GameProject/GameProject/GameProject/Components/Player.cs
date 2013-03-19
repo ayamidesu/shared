@@ -51,7 +51,7 @@ namespace GameProject.Components
 
         #region Method Region
 
-        //is it okay to send the level? for collission and interaction detection
+        //is it okay to send the level? for collission and interaction detection (just send the collision layer, and call methods from there)
         public void Update(GameTime gameTime, Level level)
         {
             camera.Update(gameTime);
@@ -80,7 +80,7 @@ namespace GameProject.Components
                 motion.Y = 1;
             }
 
-            if (InputHandler.KeyDown(Keys.A) ||
+            else if (InputHandler.KeyDown(Keys.A) ||
                 InputHandler.ButtonDown(Buttons.LeftThumbstickLeft, PlayerIndex.One))
             {
                 sprite.CurrentAnimation = AnimationKey.Left;

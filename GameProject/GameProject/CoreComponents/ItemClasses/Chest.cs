@@ -11,7 +11,7 @@ namespace CoreComponents.ItemClasses
 
         static Random Random = new Random();
         ChestData chestData;
-        //float collisionRadius;
+        float collisionRadius = 30;
 
         #endregion
 
