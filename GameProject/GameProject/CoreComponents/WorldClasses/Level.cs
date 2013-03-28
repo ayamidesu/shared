@@ -82,5 +82,32 @@ namespace CoreComponents.WorldClasses
             }
             return -1;
         }
+        public bool CheckUnWalkableTile(AnimatedSprite sprite, Vector2 motion)
+        {
+            Vector2 nextLocation = sprite.Position + motion * sprite.Speed;
+            Rectangle nextRectangle = new Rectangle(
+                (int)nextLocation.X,
+                (int)nextLocation.Y,
+                sprite.Width,
+                sprite.Height);
+            if (motion.Y < 0 && motion.X == 0)
+            {
+                return map.CheckUp(nextRectangle);
+            }
+            else if (motion.Y == 0 && motion.X < 0)
+            {
+                return map.CheckLeft(nextRectangle);
+            }
+            else if (motion.Y == 0 && motion.X > 0)
+            {
+                return map.CheckRight(nextRectangle);
+            }
+            else if (motion.Y > 0 && motion.X == 0)
+            {
+                return map.CheckDown(nextRectangle);
+            }
+
+            return false;
+        }
     }
 }

@@ -53,7 +53,7 @@ namespace GameProject.GameScreens
         {
 
             Texture2D tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\planktileset");
-            Tileset tileset1 = new Tileset(tilesetTexture, 6, 1, 40, 40);
+            Tileset tileset1 = new Tileset(tilesetTexture, 7, 1, 40, 40);
 
             tilesetTexture = Game.Content.Load<Texture2D>(@"Tilesets\walls2");
             Tileset tileset2 = new Tileset(tilesetTexture, 6, 7, 40, 40);
@@ -63,12 +63,14 @@ namespace GameProject.GameScreens
             tilesets.Add(tileset2);
             int mapWidth = 20;
             int mapHeight = 20;
-
+            CollisionLayer collision = new CollisionLayer(mapWidth, mapHeight);
             MapLayer wall = new MapLayer(mapWidth, mapHeight);
             Random random = new Random();
             //first row
             wall.SetTile(0, 0, new Tile(0, 1));
             wall.SetTile(1, 0, new Tile(1, 1));
+            collision.SetTile(0, 0, CollisionType.Unwalkable);
+            collision.SetTile(1, 0, CollisionType.Unwalkable);
             for (int i = 2; i < wall.Width - 2; i++)
             {
                 int index = random.Next(2, 4);
@@ -78,6 +80,9 @@ namespace GameProject.GameScreens
 
             wall.SetTile(wall.Width - 2, 0, new Tile(4, 1));
             wall.SetTile(wall.Width-1, 0, new Tile(5, 1));
+
+            collision.SetTile(wall.Width - 2, 0, CollisionType.Unwalkable);
+            collision.SetTile(wall.Width - 1, 0, CollisionType.Unwalkable);
             //second row
             random = new Random();
             wall.SetTile(0, 1, new Tile(6, 1));
@@ -87,6 +92,7 @@ namespace GameProject.GameScreens
                 int index = random.Next(8, 10);
                 Tile tile = new Tile(index, 1);
                 wall.SetTile(i, 1, tile);
+
             }
 
             wall.SetTile(wall.Width - 2, 1, new Tile(10, 1));
@@ -184,6 +190,9 @@ namespace GameProject.GameScreens
           //  splatter.SetTile(2, 0, new Tile(2, 1));
            // splatter.SetTile(3, 0, new Tile(3, 1));
 
+           //map.Collision = new CollisionLayer(mapWidth, mapHeight);
+          
+
             List<MapLayer> mapLayers = new List<MapLayer>();
 
         /*    System.IO.StreamReader file =
@@ -200,9 +209,14 @@ namespace GameProject.GameScreens
 
             mapLayers.Add(splatter);
             mapLayers.Add(wall);
+            collision.ProcessWallLayer(wall);
 
-            map = new TileMap(tilesets, mapLayers);
+            map = new TileMap(tilesets, mapLayers,collision);
             Level level = new Level(map);
+
+
+            //THIS IS HOW TO MAKE A TILE UNWALKABLE
+          //  map.BlockTile(4, 4);
 
             ChestData chestData = new ChestData();
 
@@ -241,7 +255,7 @@ namespace GameProject.GameScreens
             animations.Add(AnimationKey.Right, animation);
             animation = new Animation(3, 50, 50, 0, 150);
             animations.Add(AnimationKey.Up, animation);
-            Vector2 start = new Vector2(3 * Engine.TileHeight, 10 * Engine.TileWidth);
+            Vector2 start = new Vector2(3 * Engine.TileHeight, 3 * Engine.TileWidth);
             AnimatedSprite sprite = new AnimatedSprite(spriteSheet, animations,start);
             player = new Player(GameRef, sprite);
             

@@ -14,6 +14,7 @@ namespace CoreComponents.TileEngine
 
         List<Tileset> tilesets;
         List<MapLayer> mapLayers;
+        CollisionLayer collision;
 
         static int mapWidth;
         static int mapHeight;
@@ -27,6 +28,12 @@ namespace CoreComponents.TileEngine
             get { return mapWidth * Engine.TileWidth; }
         }
 
+        public CollisionLayer Collision
+        {
+            get { return collision; }
+            set { collision = value; }
+        }
+
         public static int HeightInPixels
         {
             get { return mapHeight * Engine.TileHeight; }
@@ -36,11 +43,11 @@ namespace CoreComponents.TileEngine
 
         #region Constructor Region
 
-        public TileMap(List<Tileset> tilesets, List<MapLayer> layers)
+        public TileMap(List<Tileset> tilesets, List<MapLayer> layers,CollisionLayer collisionLayer)
         {
             this.tilesets = tilesets;
             this.mapLayers = layers;
-
+            this.collision = collisionLayer;
             mapWidth = mapLayers[0].Width;
             mapHeight = mapLayers[0].Height;
 
@@ -66,6 +73,89 @@ namespace CoreComponents.TileEngine
         #endregion
 
         #region Method Region
+
+        public bool CheckUp(Rectangle nextRectangle)
+        {
+            Point tile1 = Engine.VectorToCell(
+                new Vector2(nextRectangle.X, nextRectangle.Y));
+            Point tile2 = Engine.VectorToCell(
+                new Vector2(nextRectangle.X + nextRectangle.Width - 1,
+                nextRectangle.Y + nextRectangle.Height));
+            bool doesCollide = false;
+            if (tile1.Y < 0)
+                return !doesCollide;
+            int y = tile1.Y;
+            for (int x = tile1.X; x <= tile2.X; x++)
+                if (collision.GetTile(x, y) == CollisionType.Unwalkable)
+                    doesCollide = true;
+            return doesCollide;
+        }
+
+        public bool CheckLeft(Rectangle nextRectangle)
+        {
+            Point tile1 = Engine.VectorToCell(
+                new Vector2(nextRectangle.X, nextRectangle.Y));
+            Point tile2 = Engine.VectorToCell(
+                new Vector2(nextRectangle.X + nextRectangle.Width,
+                   nextRectangle.Y + nextRectangle.Height - 1));
+            bool doesCollide = false;
+            if (tile1.X < 0)
+                return !doesCollide;
+            int x = tile1.X;
+            for (int y = tile1.Y; y <= tile2.Y; y++)
+                {
+                if (collision.GetTile(x,y) == CollisionType.Unwalkable)
+                    doesCollide = true;
+                }
+        return doesCollide;
+        }
+
+        public bool CheckRight(Rectangle nextRectangle)
+        {
+        Point tile1 = Engine.VectorToCell(
+            new Vector2(nextRectangle.X, nextRectangle.Y));
+
+        Point tile2 = Engine.VectorToCell(
+            new Vector2(nextRectangle.X + nextRectangle.Width,
+            nextRectangle.Y + nextRectangle.Height - 1));
+
+        bool doesCollide = false;
+        if (tile2.X >= mapWidth)
+        return !doesCollide;
+        int x = tile2.X;
+        for (int y = tile1.Y; y <= tile2.Y; y++)
+            {
+            if (collision.GetTile(x, y) == CollisionType.Unwalkable)
+                doesCollide = true;
+            }
+        return doesCollide;
+        }
+
+        public bool CheckDown(Rectangle nextRectangle)
+        {
+            Point tile1 = Engine.VectorToCell(
+            new Vector2(nextRectangle.X, nextRectangle.Y));
+            Point tile2 = Engine.VectorToCell(
+            new Vector2(nextRectangle.X + nextRectangle.Width - 1,
+            nextRectangle.Y + nextRectangle.Height));
+            bool doesCollide = false;
+            if (tile2.Y >= mapHeight)
+                return !doesCollide;
+            int y = tile2.Y;
+            for (int x = tile1.X; x <= tile2.X; x++)
+            {
+                if (collision.GetTile(x, y) == CollisionType.Unwalkable)
+                    doesCollide = true;
+            }
+            return doesCollide;
+        }
+
+
+
+        public void BlockTile(int x, int y)
+        {
+            collision.SetTile(x, y,CollisionType.Unwalkable);
+        }
 
         public void AddLayer(MapLayer layer)
         {

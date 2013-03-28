@@ -47,6 +47,14 @@ namespace CoreComponents.TileEngine
             }
         }
 
+        public bool Blocked(int row,int column)
+        {
+            if (layer[row,column].TileIndex == 7) 
+            {
+                return true;
+            }
+            return false;
+            }
         #endregion
 
         #region Method Region

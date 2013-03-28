@@ -119,6 +119,7 @@
     <Compile Include="SpriteClasses\BaseSprite.cs" />
     <Compile Include="SpriteClasses\ItemSprite.cs" />
     <Compile Include="TileEngine\Camera.cs" />
+    <Compile Include="TileEngine\CollisionLayer.cs" />
     <Compile Include="TileEngine\Engine.cs" />
     <Compile Include="TileEngine\MapLayer.cs" />
     <Compile Include="TileEngine\Tile.cs" />

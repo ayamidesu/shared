@@ -46,6 +46,7 @@ namespace GameProject.Components
             gameRef = (Game1)game;
             camera = new Camera(gameRef.ScreenRectangle);
             this.sprite = sprite;
+            camera.LockToSprite(sprite);
         }
         #endregion
 
@@ -98,7 +99,10 @@ namespace GameProject.Components
                 sprite.IsAnimating = true;
                 motion.Normalize();
 
-                sprite.Position += motion * sprite.Speed;
+                if (!level.CheckUnWalkableTile(sprite, motion))
+                {
+                    sprite.Position += motion * sprite.Speed;
+                }
                 sprite.LockToMap();
                 camera.LockToSprite(sprite);
             }
