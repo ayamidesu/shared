@@ -70,26 +70,35 @@ namespace CoreComponents.WorldClasses
 
         #endregion
 
-        public int CheckChestRadius(Vector2 position)
+        public bool CheckSpriteCollision(Rectangle player)
         {
             for (int i = 0; i < chests.Count; i++)
             {
-                if(chests[i].CheckRadius(position))
+                if(chests[i].CheckRadius(player))
                 {
-                    return i;
+                    return true;
                 }
                 
             }
+            return false;
+        }
+
+        public int CheckInteractionRadius(Vector2 player)
+        {
+            for (int i = 0; i < chests.Count; i++)
+            {
+                if (chests[i].CheckInteraction(player))
+                {
+                    return i;
+                }
+
+            }
             return -1;
         }
-        public bool CheckUnWalkableTile(AnimatedSprite sprite, Vector2 motion)
+
+        public bool CheckUnWalkableTile(Rectangle nextRectangle, Vector2 motion)
         {
-            Vector2 nextLocation = sprite.Position + motion * sprite.Speed;
-            Rectangle nextRectangle = new Rectangle(
-                (int)nextLocation.X,
-                (int)nextLocation.Y,
-                sprite.Width,
-                sprite.Height);
+            
             if (motion.Y < 0 && motion.X == 0)
             {
                 return map.CheckUp(nextRectangle);

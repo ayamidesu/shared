@@ -11,7 +11,7 @@ namespace CoreComponents.ItemClasses
 
         static Random Random = new Random();
         ChestData chestData;
-        float collisionRadius = 30;
+        float chestRadius = 50;
 
         #endregion
 
@@ -26,10 +26,10 @@ namespace CoreComponents.ItemClasses
             get { return chestData.IsTrapped; }
         }
 
-      /*  public override float CollisionRadius
+        public float ChestRadius
         {
-            get { return collisionRadius; }
-        }*/
+            get { return chestRadius; }
+        }
 
         public int Gold
         {
@@ -52,6 +52,7 @@ namespace CoreComponents.ItemClasses
             : base(data.Name, "")
         {
             this.chestData = data;
+            base.InteractionRadius = ChestRadius;
         }
 
         #endregion
@@ -73,7 +74,7 @@ namespace CoreComponents.ItemClasses
             data.MinGold = chestData.MinGold;
             data.MaxGold = chestData.MaxGold;
             data.Size = chestData.Size;
-            int radius = data.Size + 50;
+            //int radius = data.Size + 50;
             foreach (KeyValuePair<string, string> pair in chestData.ItemCollection)
                 data.ItemCollection.Add(pair.Key, pair.Value);
             Chest chest = new Chest(data);

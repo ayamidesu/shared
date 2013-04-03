@@ -216,8 +216,11 @@ namespace GameProject.GameScreens
 
 
             //THIS IS HOW TO MAKE A TILE UNWALKABLE
-          //  map.BlockTile(4, 4);
+            // map.BlockTile(1, 3);
 
+           // world.Levels.Add(level);
+
+            Level level2 = new Level(map);
             ChestData chestData = new ChestData();
 
             chestData.Name = "Some Chest";
@@ -229,52 +232,62 @@ namespace GameProject.GameScreens
 
             BaseSprite chestSprite = new BaseSprite(
             containers,
-            new Rectangle(0, 0, 40, 40),
-            new Point(4, 4));
-            float radius = 30;
+            new Rectangle(0, 0, 38, 38),
+            new Point(6, 6));
             ItemSprite itemSprite = new ItemSprite(
             chest,
-            chestSprite,radius);
+            chestSprite);
 
-            level.Chests.Add(itemSprite);
+            level2.Chests.Add(itemSprite);
 
-            world.Levels.Add(level);
+            world.Levels.Add(level2);
             world.CurrentLevel = 0;
         }
 
         protected void createPlayer()
         {
-            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char3");
+            Texture2D spriteSheet = Game.Content.Load<Texture2D>(@"PlayerSprites\char4");
             Dictionary<AnimationKey, Animation> animations = new Dictionary<AnimationKey, Animation>();
 
             Animation animation = new Animation(3, 50, 50, 0, 0);
             animations.Add(AnimationKey.Down, animation);
             animation = new Animation(3, 50, 50, 0, 50);
-            animations.Add(AnimationKey.Left, animation);
+            animations.Add(AnimationKey.Up, animation);
             animation = new Animation(3, 50, 50, 0, 100);
             animations.Add(AnimationKey.Right, animation);
             animation = new Animation(3, 50, 50, 0, 150);
-            animations.Add(AnimationKey.Up, animation);
+            animations.Add(AnimationKey.Left, animation);
             Vector2 start = new Vector2(3 * Engine.TileHeight, 3 * Engine.TileWidth);
             AnimatedSprite sprite = new AnimatedSprite(spriteSheet, animations,start);
             player = new Player(GameRef, sprite);
             
         }
 
+      
+
         protected override void LoadContent()
         {
 
             base.LoadContent();
-            containers = Game.Content.Load<Texture2D>(@"ItemSprites\chest");
-            createPlayer();
+            containers = Game.Content.Load<Texture2D>(@"ItemSprites\chest3");
+            
             createWorld();
+            createPlayer();
         }
 
         public override void Update(GameTime gameTime)
         {
-            player.Update(gameTime,world.Levels[world.CurrentLevel]);
+
+            player.Update(gameTime, world.Levels[world.CurrentLevel]);
+          /*  if (Engine.VectorToCell(player.Sprite.Position).X == 10 && world.CurrentLevel==0)
+            {
+                world.CurrentLevel = 1;
+                //function to change player sprites position
+                player.SetPosition(3,3);
+            }*/
             HandleInteraction();
             base.Update(gameTime);
+            
         }
 
        
@@ -304,7 +317,13 @@ namespace GameProject.GameScreens
             if (InputHandler.KeyDown(Keys.Enter) ||
                   InputHandler.ButtonDown(Buttons.B, PlayerIndex.One))
             {
-                int ChestId=(world.Levels[world.CurrentLevel]).CheckChestRadius(player.Sprite.Position);
+
+                Rectangle nextRectangle = new Rectangle(
+                (int)player.Sprite.Position.X,
+                (int)player.Sprite.Position.Y,
+                player.Sprite.Width,
+                player.Sprite.Height);
+                int ChestId = (world.Levels[world.CurrentLevel]).CheckInteractionRadius(player.Sprite.Position);
                 if(ChestId>=0)
                 {
                     Game.Window.Title = "near chest";

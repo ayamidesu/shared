@@ -13,6 +13,7 @@ namespace CoreComponents.ItemClasses
 
         string name;
         string type;
+        float interactionRadius;
 
         #endregion
 
@@ -25,13 +26,18 @@ namespace CoreComponents.ItemClasses
             protected set { type = value; }
         }
 
+        public float InteractionRadius
+        {
+            get { return interactionRadius; }
+            protected set { interactionRadius = value; }
+        }
+
         public string Name
         {
             get { return name; }
             protected set { name = value; }
         }
        
-
 
         #endregion
 
@@ -49,7 +55,7 @@ namespace CoreComponents.ItemClasses
 
         public abstract object Clone();
 
-
+        
         public override string ToString()
         {
             string itemString = "";

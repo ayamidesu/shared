@@ -18,8 +18,7 @@ namespace CoreComponents.SpriteClasses
         BaseSprite sprite;
         InterItem initem;
         BaseItem item;
-        float collisionRadius; //not sure where collission variable should go, subject to change
-
+       
         #endregion
 
         #region Property Region
@@ -35,25 +34,18 @@ namespace CoreComponents.SpriteClasses
         {
             get { return initem; }
         }
-        public virtual float CollisionRadius
-        {
-            get { return collisionRadius; }
-            set { collisionRadius = value; }
-        }
         #endregion
 
         #region Constructor Region
-        public ItemSprite(BaseItem item, BaseSprite sprite, float Radius)
+        public ItemSprite(BaseItem item, BaseSprite sprite)
         {
             this.item = item;
             this.sprite = sprite;
-            this.collisionRadius = Radius;
         }
-        public ItemSprite(InterItem item, BaseSprite sprite, float Radius)
+        public ItemSprite(InterItem item, BaseSprite sprite)
         {
             this.initem = item;
             this.sprite = sprite;
-            this.collisionRadius = Radius;
         }
         #endregion
 
@@ -71,12 +63,36 @@ namespace CoreComponents.SpriteClasses
         }
         #endregion
 
-        public bool CheckRadius(Vector2 position)
+        public bool CheckRadius(Rectangle player)
         {
+
+            Rectangle item = sprite.Rectangle;
+            player.X += 25;
+            player.Y += 25;
+            item.X += item.Width / 2;
+            item.Y += item.Height / 2;
+            bool collide = (Math.Abs(player.X - item.X) * 2 < (player.Width + item.Width)) &&
+                (Math.Abs(player.Y - item.Y) * 2 < (player.Height + item.Height));
+            return collide;
+           /* Vector2 position;
+            position.X=player.X;
+            position.Y=player.Y;
+            if ((position - sprite.Position).Length() < (Math.Abs(player.Y * player.Height / 2) + Math.Abs(item.Y * item.Height / 2)))
+            {
+                return false;
+            }
+            return true;*/
+            
+            
+        }
+
+        public bool CheckInteraction(Vector2 player)
+        {
+
             float distance = Vector2.Distance(
                  sprite.Position,
-                 position);
-            if (distance < collisionRadius)
+                 player);
+            if (distance <= initem.InteractionRadius)
             {
                 return true;
             }

@@ -21,6 +21,7 @@ namespace GameProject.Components
         Camera camera;
         Game1 gameRef;
         AnimatedSprite sprite;
+        Rectangle playerrect;
 
         #endregion
 
@@ -35,8 +36,19 @@ namespace GameProject.Components
         public AnimatedSprite Sprite
         {
             get { return sprite; }
+            
+            set { sprite=value; }
         }
 
+        public Rectangle PlayerRect
+        {
+            get
+            {
+                playerrect.X = (int)sprite.Position.X;
+                playerrect.Y = (int)sprite.Position.Y;
+                return playerrect;
+            }
+        }
         #endregion
 
         #region Constructor Region
@@ -47,6 +59,11 @@ namespace GameProject.Components
             camera = new Camera(gameRef.ScreenRectangle);
             this.sprite = sprite;
             camera.LockToSprite(sprite);
+            playerrect = new Rectangle(
+                    (int)sprite.Position.X,
+                    (int)sprite.Position.Y,
+                    sprite.Width,
+                    sprite.Height);
         }
         #endregion
 
@@ -59,7 +76,7 @@ namespace GameProject.Components
             sprite.Update(gameTime);
             Vector2 motion = new Vector2();
 
-         /*   if (InputHandler.KeyDown(Keys.Enter) ||
+          /* if (InputHandler.KeyDown(Keys.Enter) ||
                   InputHandler.ButtonDown(Buttons.B, PlayerIndex.One))
             {
                 int ChestId = (level).CheckChestRadius(sprite.Position);
@@ -98,8 +115,23 @@ namespace GameProject.Components
             {
                 sprite.IsAnimating = true;
                 motion.Normalize();
-
-                if (!level.CheckUnWalkableTile(sprite, motion))
+                Vector2 nextLocation = sprite.Position + motion * sprite.Speed;
+                Rectangle nextRectangle = new Rectangle(
+                    (int)nextLocation.X,
+                    (int)nextLocation.Y,
+                    sprite.Width-15,
+                    sprite.Height-18);
+                bool colliding = (level).CheckSpriteCollision(nextRectangle);
+                if (colliding)
+                {
+                    return;
+                }
+                nextRectangle = new Rectangle(
+                    (int)nextLocation.X,
+                    (int)nextLocation.Y,
+                    sprite.Width,
+                    sprite.Height);
+                if (!level.CheckUnWalkableTile(nextRectangle, motion))
                 {
                     sprite.Position += motion * sprite.Speed;
                 }
@@ -110,6 +142,12 @@ namespace GameProject.Components
             {
                 sprite.IsAnimating = false;
             }
+        }
+
+        public void SetPosition(int X, int Y)
+        {
+            Vector2 newPosition = new Vector2(X*Engine.TileWidth, Y*Engine.TileHeight);
+            sprite.Position = newPosition;
         }
 
 
