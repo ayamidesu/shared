@@ -96,6 +96,7 @@
     <Compile Include="CharacterClasses\Character.cs" />
     <Compile Include="CharacterClasses\Entity.cs" />
     <Compile Include="CharacterClasses\MainCharacter.cs" />
+    <Compile Include="CharacterClasses\Party.cs" />
     <Compile Include="CharacterClasses\StatusBar.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlManager.cs" />
@@ -106,8 +107,10 @@
     <Compile Include="ItemClasses\BaseItem.cs" />
     <Compile Include="ItemClasses\Chest.cs" />
     <Compile Include="ItemClasses\ChestData.cs" />
+    <Compile Include="ItemClasses\Door.cs" />
     <Compile Include="ItemClasses\InterItem.cs" />
     <Compile Include="ItemClasses\ItemManager.cs" />
+    <Compile Include="ItemClasses\Key.cs" />
     <Compile Include="ItemClasses\Shield.cs" />
     <Compile Include="ItemClasses\Weapon.cs" />
     <Compile Include="SpriteClasses\AnimatedSprite.cs" />

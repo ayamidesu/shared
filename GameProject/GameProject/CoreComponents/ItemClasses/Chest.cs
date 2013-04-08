@@ -10,8 +10,13 @@ namespace CoreComponents.ItemClasses
         #region Field Region
 
         static Random Random = new Random();
-        ChestData chestData;
+        public string TextureName;
+        public bool isLocked;
+        public int MinGold;
+        public int MaxGold;
+        public List<BaseItem> ItemCollection;
         float chestRadius = 50;
+        List<string> keysRequired;
 
         #endregion
 
@@ -19,11 +24,8 @@ namespace CoreComponents.ItemClasses
 
         public bool IsLocked
         {
-            get { return chestData.IsLocked; }
-        }
-        public bool IsTrapped
-        {
-            get { return chestData.IsTrapped; }
+            get { return isLocked; }
+            set { isLocked = value; }
         }
 
         public float ChestRadius
@@ -35,11 +37,11 @@ namespace CoreComponents.ItemClasses
         {
             get
             {
-                if (chestData.MinGold == 0 && chestData.MaxGold == 0)
+                if (MinGold == 0 && MaxGold == 0)
                     return 0;
-                int gold = Random.Next(chestData.MinGold, chestData.MaxGold);
-                chestData.MinGold = 0;
-                chestData.MaxGold = 0;
+                int gold = Random.Next(MinGold, MaxGold);
+                MinGold = 0;
+                MaxGold = 0;
                 return gold;
             }
         }
@@ -48,36 +50,66 @@ namespace CoreComponents.ItemClasses
 
         #region Constructor Region
 
-        public Chest(ChestData data)
-            : base(data.Name, "")
+        public Chest(string name,bool locked,int minGold,int maxGold)
+            : base(name, "")
         {
-            this.chestData = data;
+            IsLocked = locked;
+            MinGold = minGold;
+            MaxGold = maxGold;
             base.InteractionRadius = ChestRadius;
+            ItemCollection = new List<BaseItem>();
+            keysRequired = new List<string>();
         }
+
+         
 
         #endregion
 
         #region Method Region
-        #endregion
 
-        #region Virtual Method region
+        
+        public void addItem(BaseItem item)
+        {
+            ItemCollection.Add(item);
+        }
+
+        public void addKey(string key)
+        {
+            keysRequired.Add(key);
+        }
+
+        public void UnlockChest(List<Key> Inventory)
+        {
+            if (this.IsLocked)
+            {
+                int count = 0;
+                foreach (string keyname in keysRequired)
+                {
+                    foreach (Key InvKey in Inventory)
+                    {
+                        if (keyname == InvKey.Name)
+                        {
+                            count++;
+                        }
+                    }
+                }
+
+                if (count == keysRequired.Count)
+                {
+                    this.IsLocked = false;
+                }
+            }
+        }
 
         public override object Clone()
         {
-            ChestData data = new ChestData();
-            data.Name = chestData.Name;
-            data.IsLocked = chestData.IsLocked;
-            data.IsTrapped = chestData.IsTrapped;
-            data.TextureName = chestData.TextureName;
-            data.TrapName = chestData.TrapName;
-            data.KeyName = chestData.KeyName;
-            data.MinGold = chestData.MinGold;
-            data.MaxGold = chestData.MaxGold;
-            data.Size = chestData.Size;
-            //int radius = data.Size + 50;
-            foreach (KeyValuePair<string, string> pair in chestData.ItemCollection)
-                data.ItemCollection.Add(pair.Key, pair.Value);
-            Chest chest = new Chest(data);
+
+            Chest chest = new Chest(Name,IsLocked,MinGold,MaxGold);
+            foreach (BaseItem item in ItemCollection)
+                chest.ItemCollection.Add(item);
+
+            foreach (String key in keysRequired)
+                chest.keysRequired.Add(key);
             return chest;
         }
         #endregion

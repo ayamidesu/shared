@@ -11,32 +11,36 @@ namespace CoreComponents.ItemClasses
         public string Name;
         public string TextureName;
         public int Size;
-        public bool IsTrapped;
         public bool IsLocked;
-        public string TrapName;
-        public string KeyName;
         public int MinGold;
         public int MaxGold;
-        public Dictionary<string, string> ItemCollection;
+        public List<BaseItem> ItemCollection;
 
         public ChestData()
         {
-            ItemCollection = new Dictionary<string, string>();
+            ItemCollection = new List<BaseItem>();
+        }
+
+        public ChestData(List<BaseItem> list) 
+        {
+            ItemCollection = list;
+        }
+
+        public void addItem(BaseItem item)
+        {
+            ItemCollection.Add(item);
         }
 
         public override string ToString()
         {
             string toString = Name + ", ";
             toString += TextureName + ", ";
-            toString += IsTrapped.ToString() + ", ";
             toString += IsLocked.ToString() + ", ";
-            toString += TrapName + ", ";
-            toString += KeyName + ", ";
             toString += MinGold.ToString() + ", ";
             toString += MaxGold.ToString();
-            foreach (KeyValuePair<string, string> pair in ItemCollection)
+            foreach (BaseItem item in ItemCollection)
             {
-                toString += ", " + pair.Key + "+" + pair.Value;
+                toString += item.Name;
             }
             return toString;
         }

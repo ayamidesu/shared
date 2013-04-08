@@ -11,6 +11,8 @@ using Microsoft.Xna.Framework.Input;
 using CoreComponents;
 using CoreComponents.TileEngine;
 using GameProject.Components;
+
+using CoreComponents.CharacterClasses;
 using CoreComponents.SpriteClasses;
 using CoreComponents.WorldClasses;
 using CoreComponents.ItemClasses;
@@ -25,6 +27,7 @@ namespace GameProject.GameScreens
         TileMap map;
         Player player;
         World world;
+        Party party;
         Texture2D containers;
 
         #endregion
@@ -221,14 +224,10 @@ namespace GameProject.GameScreens
            // world.Levels.Add(level);
 
             Level level2 = new Level(map);
-            ChestData chestData = new ChestData();
 
-            chestData.Name = "Some Chest";
-            chestData.MinGold = 10;
-            chestData.MaxGold = 101;
-            chestData.IsLocked = false;
-
-            Chest chest = new Chest(chestData);
+       
+            Chest chest = new Chest("Some Chest",true,10,20);
+            chest.addKey("Some Key");
 
             BaseSprite chestSprite = new BaseSprite(
             containers,
@@ -263,6 +262,14 @@ namespace GameProject.GameScreens
             
         }
 
+        protected void createParty()
+        {
+            party = new Party();
+            Weapon wep = new Weapon("Awesomeness", "Sword", 300, 1, Hands.One, 100, 10, 200, 2);
+            party.addWeapon(wep);
+            Key key = new Key("Some Key");
+            party.addKey(key);
+        }
       
 
         protected override void LoadContent()
@@ -273,6 +280,7 @@ namespace GameProject.GameScreens
             
             createWorld();
             createPlayer();
+            createParty();
         }
 
         public override void Update(GameTime gameTime)
@@ -331,7 +339,11 @@ namespace GameProject.GameScreens
                     Chest ch = (Chest)c.InItem;
                     if (ch.IsLocked)
                     {
-                        Game.Window.Title = "hooray";
+                        ch.UnlockChest(party.keyInv);
+                        if (ch.IsLocked)
+                        {
+                            Game.Window.Title = "hooray";
+                        }
                     }
                     //better to push states here, so handle interaction in the gameplay screen
                 }

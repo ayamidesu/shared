@@ -36,8 +36,7 @@ namespace CoreComponents.CharacterClasses
         }
         #endregion
 
-            #region Method Region
-            #endregion
+          
 
         #region Virtual Method region
 
