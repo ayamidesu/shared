@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>That was not the right answer. Try this riddle instead...</Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Sad</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        If there are five apples, and you take away three, how many do you have?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message></Message>
+      <Choices>
+        <Item>
+          <Key>0</Key>
+          <Value>4</Value>
+        </Item>
+        <Item>
+          <Key>2</Key>
+          <Value>4</Value>
+        </Item>
+        <Item>
+          <Key>3</Key>
+          <Value>2</Value>
+        </Item>
+        <Item>
+          <Key>5</Key>
+          <Value>4</Value>
+        </Item>
+      </Choices>
+    </Item>
+  </Asset>
+</XnaContent>

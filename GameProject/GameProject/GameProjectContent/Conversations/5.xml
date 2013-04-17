@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>Sorry, you didn't get any right. 
+      Come back later to try again.</Message>
+      <Choices Null="true" />
+    </Item>
+  </Asset>
+</XnaContent>
