@@ -24,6 +24,7 @@ namespace CoreComponents.SpriteClasses
         #region Property Region
         public BaseSprite Sprite
         {
+            set { sprite = value; }
             get { return sprite; }
         }
         public BaseItem Item
@@ -47,6 +48,11 @@ namespace CoreComponents.SpriteClasses
             this.initem = item;
             this.sprite = sprite;
         }
+    /*    public ItemSprite(LevelItems item, BaseSprite sprite)
+        {
+            this.initem = item;
+            this.sprite = sprite;
+        }*/
         #endregion
 
         #region Method Region

@@ -20,7 +20,7 @@ namespace CoreComponents.WorldClasses
         readonly List<Character> characters;
         readonly List<ItemSprite> levelItem;
         readonly List<ItemSprite> interactiveChars;
-        readonly List<ItemSprite> objectItems;
+        readonly List<ItemSprite> doors;
 
         #endregion
 
@@ -38,6 +38,10 @@ namespace CoreComponents.WorldClasses
         {
             get { return levelItem; }
         }
+        public List<ItemSprite> Doors
+        {
+            get { return doors; }
+        }
         public List<ItemSprite> InteractiveCharacter
         {
             get { return interactiveChars; }
@@ -54,7 +58,7 @@ namespace CoreComponents.WorldClasses
             characters = new List<Character>();
             levelItem = new List<ItemSprite>();
             interactiveChars = new List<ItemSprite>();
-            objectItems = new List<ItemSprite>();
+            doors = new List<ItemSprite>();
         }
         #endregion
 
@@ -67,8 +71,8 @@ namespace CoreComponents.WorldClasses
                 character.Update(gameTime);
             foreach (ItemSprite sprite in levelItem)
                 sprite.Update(gameTime);
-            foreach (ItemSprite interactiveChar in interactiveChars)
-                interactiveChar.Update(gameTime);
+            foreach (ItemSprite door in doors)
+                door.Update(gameTime);
        
         }
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Camera camera)
@@ -78,8 +82,8 @@ namespace CoreComponents.WorldClasses
                 character.Draw(gameTime, spriteBatch);
             foreach (ItemSprite sprite in levelItem)
                 sprite.Draw(gameTime, spriteBatch);
-            foreach (ItemSprite interactiveChar in interactiveChars)
-                interactiveChar.Draw(gameTime, spriteBatch);
+            foreach (ItemSprite door in doors)
+                door.Draw(gameTime, spriteBatch);
             
         }
 
@@ -113,6 +117,19 @@ namespace CoreComponents.WorldClasses
             for (int i = 0; i < levelItem.Count; i++)
             {
                 if (levelItem[i].CheckInteraction(player))
+                {
+                    return i;
+                }
+
+            }
+            return -1;
+        }
+
+        public int CheckDoorRadius(Vector2 player)
+        {
+            for (int i = 0; i < doors.Count; i++)
+            {
+                if (doors[i].CheckInteraction(player))
                 {
                     return i;
                 }

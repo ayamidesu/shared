@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Microsoft.Xna.Framework.Graphics;
+
+using ConversationEngine;
+using DialogueEngine;
+
 namespace CoreComponents.ItemClasses
 {
     public class LevelItems : InterItem
@@ -13,22 +18,49 @@ namespace CoreComponents.ItemClasses
         public string TextureName;
         public bool isLocked;
         public bool canTalk;
+        protected bool firstTime;
         public int MinGold;
         public int MaxGold;
         public int requiredItem;
-        public List<BaseItem> ItemCollection;
-        List<string> itemsRequired;
+        public List<Key> ItemCollection;
+      //  List<string> itemsRequired;
         float chestRadius = 50;
         List<string> keysRequired;
+        int ConversationBefore;
+        int ConversationAfter;
 
         #endregion
 
         #region Property Region
 
+        public int conversationAfter
+        {
+            get { return ConversationAfter; }
+            set
+            {
+                ConversationAfter = value;
+            }
+        }
+
+        public int conversationBefore
+        {
+            get { return ConversationBefore; }
+            set
+            {
+                ConversationBefore = value;
+            }
+        }
+
         public bool IsLocked
         {
             get { return isLocked; }
             set { isLocked = value; }
+        }
+
+        public bool FirstTime
+        {
+            get { return firstTime; }
+            set { firstTime = value; }
         }
 
         public bool CanTalk
@@ -75,7 +107,7 @@ namespace CoreComponents.ItemClasses
             MinGold = minGold;
             MaxGold = maxGold;
             base.InteractionRadius = ChestRadius;
-            ItemCollection = new List<BaseItem>();
+            ItemCollection = new List<Key>();
             keysRequired = new List<string>();
         }
 
@@ -84,7 +116,20 @@ namespace CoreComponents.ItemClasses
         {
             CanTalk = canTalk;
             base.InteractionRadius = ChestRadius;
-            ItemCollection = new List<BaseItem>();
+            ItemCollection = new List<Key>();
+        }
+
+        public LevelItems(string name,int conversationBefore, int conversationAfter, bool locked)
+            : base(name, "")
+        {
+            isLocked = locked;
+            firstTime = true;
+            ConversationBefore = conversationBefore;
+            ConversationAfter = conversationAfter;
+            base.InteractionRadius = ChestRadius;
+            ItemCollection = new List<Key>();
+            keysRequired = new List<string>();
+            
         }
 
 
@@ -92,7 +137,7 @@ namespace CoreComponents.ItemClasses
             : base(name, "")
         {
             base.InteractionRadius = ChestRadius;
-            ItemCollection = new List<BaseItem>();
+            ItemCollection = new List<Key>();
         }
 
          
@@ -101,8 +146,80 @@ namespace CoreComponents.ItemClasses
 
         #region Method Region
 
+    /*    public int interact(List<Key> Inventory)
+        {
+            if (isLocked)
+            {
+                if (conversationBefore >= 0)
+                {
+                    int ConvId = conversationBefore;
+                    conversationBefore = -1;
+                    return ConvId;
+                }
+                else
+                {
+                    UnlockChest(Inventory);
+                    if (!isLocked)
+                    {
+                        if (conversationAfter >= 0)
+                            return conversationAfter;
+                    }
+                }
+            }
+            return -1;
+                
+        }*/
+
+       
+
+       public int interact(List<Key> Inventory)
+        {
+
+            if(this.FirstTime)
+            {
+                if (this.IsLocked)
+                {
+                   this.FirstTime = false;
+                   return ConversationBefore;
+                }
+                else if(!this.IsLocked)
+                {
+                    //give stuff
+                    foreach (Key key in ItemCollection)
+                    {
+                        Inventory.Add(key);
+                    }
+                   this.FirstTime = false;
+                   return ConversationAfter;
+                }
+            }
+            else if(!this.FirstTime)
+            {
+                if (this.IsLocked)
+                {
+                    Unlock(Inventory);
+                    if (!this.IsLocked)
+                    {
+                        foreach (Key key in ItemCollection)
+                        {
+                            Inventory.Add(key);
+                        }
+                        return conversationAfter;
+                    }
+                    else
+                        return ConversationBefore;
+                }
+                else
+                    return ConversationAfter;
+            }
+           
+         
+            return -1;
+            
+        } 
+
         
-        public void addItem(BaseItem item)
+        public void addItem(Key item)
         {
             ItemCollection.Add(item);
         }
@@ -112,19 +229,30 @@ namespace CoreComponents.ItemClasses
             keysRequired.Add(key);
         }
 
-        public void UnlockChest(List<Key> Inventory)
+   
+
+       public void Unlock(List<Key> Inventory)
         {
             if (this.IsLocked)
             {
                 int count = 0;
+                int position = -1;
                 foreach (string keyname in keysRequired)
                 {
-                    foreach (Key InvKey in Inventory)
+                    for(int i=0; i<Inventory.Count; i++)
                     {
+                        Key InvKey = Inventory[i];
                         if (keyname == InvKey.Name)
                         {
                             count++;
+                            position = i;
                         }
+                       
+                    }
+                    if (position >= 0)
+                    {
+                        Inventory.RemoveAt(position);
+                        position = -1;
                     }
                 }
 
@@ -135,19 +263,17 @@ namespace CoreComponents.ItemClasses
             }
         }
 
-
-        // add DIALOGUE information for talking characters
-
         public override object Clone()
         {
 
             LevelItems chest = new LevelItems(Name,IsLocked,MinGold,MaxGold);
-            foreach (BaseItem item in ItemCollection)
+            foreach (Key item in ItemCollection)
                 chest.ItemCollection.Add(item);
 
-            LevelItems objItem = new LevelItems(Name);
-            foreach (BaseItem item in ItemCollection)
-                objItem.ItemCollection.Add(item);          
+            chest.firstTime = true;
+            chest.isLocked = this.isLocked;
+            chest.conversationBefore = this.conversationBefore;
+            chest.conversationAfter = this.conversationAfter;
             
             foreach (String key in keysRequired)
                 chest.keysRequired.Add(key);

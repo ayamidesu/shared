@@ -120,7 +120,7 @@ namespace GameProject.Components
                     (int)nextLocation.X,
                     (int)nextLocation.Y,
                     sprite.Width-15,
-                    sprite.Height-18);
+                    sprite.Height-10);
                 bool colliding = (level).CheckSpriteCollision(nextRectangle);
                 if (colliding)
                 {

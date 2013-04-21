@@ -48,6 +48,7 @@ namespace GameProject.GameScreens
         Texture2D exitOne;
         Texture2D table;
         bool inDialog;
+        Song bgEffect;
         //Texture2D charTest;
         //interactiveCharacter jeanValleMatt;
 
@@ -62,6 +63,7 @@ namespace GameProject.GameScreens
             : base(game, manager)
         {
             world = new World(game, GameRef.ScreenRectangle);
+           
         }
 
         #endregion
@@ -72,8 +74,6 @@ namespace GameProject.GameScreens
         {
             base.Initialize();
         }
-
-       
 
         protected override void LoadContent()
         {
@@ -97,7 +97,7 @@ namespace GameProject.GameScreens
             Conversation.Initialize(Game.Content.Load<SpriteFont>(@"Fonts\Segoe"),
                Game.Content.Load<SoundEffect>(@"SoundEffects\ContinueDialogue"),
                Game.Content.Load<Texture2D>(@"Textures\DialogueBoxBackground"),
-               new Rectangle(50, 50, 400, 100),
+               new Rectangle(10, 50, 400, 100),
                Game.Content.Load<Texture2D>(@"Textures\BorderImage"),
                5,
                Color.Black,
@@ -112,11 +112,18 @@ namespace GameProject.GameScreens
             foreach (FileInfo fi in fileInfo)
                 arrayList.Add(fi.FullName);
 
-            for (int i = 0; i < arrayList.Count; i++)
+     /*       for (int i = 0; i < arrayList.Count; i++)
             {
                 Conversation.Avatars.Add(Game.Content.Load<Texture2D>(@"Avatars\" + 1));
             }
+       */
             inDialog = false;
+
+            bgEffect = Game.Content.Load<Song>(@"SoundEffects\SneakySnitch");
+            //SoundEffectInstance instance = bgEffect.CreateInstance();
+           // instance.IsLooped = true;
+            MediaPlayer.Play(bgEffect);
+            MediaPlayer.IsRepeating = true;
 
             //containers = Game.Content.Load<Texture2D>(@"PlayerSprites\char");
             //charTest = Game.Content.Load<Texture2D>(@"PlayerSprites\char");
@@ -129,7 +136,7 @@ namespace GameProject.GameScreens
         public override void Update(GameTime gameTime)
         {
 
-            player.Update(gameTime, world.Levels[world.CurrentLevel]);
+           
             //UNCOMMENT IF YOU WANT TO MOVE TO THE SECOND LEVEL BY WALKING TO THE 4TH ROW
             /*
              if (Engine.VectorToCell(player.Sprite.Position).X == 4 && world.CurrentLevel==0)
@@ -141,7 +148,14 @@ namespace GameProject.GameScreens
              * */
             if(inDialog)
                 Conversation.Update(gameTime);
-            HandleInteraction();
+            if (Conversation.Expired)
+                inDialog = false;
+            if (!inDialog)
+            {
+                HandleInteraction();
+                player.Update(gameTime, world.Levels[world.CurrentLevel]);
+                
+            }
             base.Update(gameTime);
 
         }
@@ -150,6 +164,7 @@ namespace GameProject.GameScreens
 
         public override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.Black);
             GameRef.SpriteBatch.Begin(
             SpriteSortMode.Deferred,
             BlendState.AlphaBlend,
@@ -158,11 +173,17 @@ namespace GameProject.GameScreens
             null,
             player.Camera.Transformation);
             world.DrawLevel(gameTime, GameRef.SpriteBatch, player.Camera);
-            if (inDialog)
-                Conversation.Draw(GameRef.SpriteBatch);
             player.Draw(gameTime, GameRef.SpriteBatch);
+
+            GameRef.SpriteBatch.End();
+            GameRef.SpriteBatch.Begin();
+            if (inDialog)
+            {
+                Conversation.Draw(GameRef.SpriteBatch);
+            }
             base.Draw(gameTime);
             GameRef.SpriteBatch.End();
+            
         }
 
         #endregion
@@ -171,10 +192,11 @@ namespace GameProject.GameScreens
 
         protected void createWorld()
         {
+
+
             level1();
             level2();
-
-            world.CurrentLevel = 1;
+            world.CurrentLevel = 0;
         }
 
         protected void level1()
@@ -389,7 +411,7 @@ namespace GameProject.GameScreens
             potSprite);
             level.LevelItem.Add(potItemSprite);
 
-            LevelItems cDoor = new LevelItems("Door");
+           /* LevelItems cDoor = new LevelItems("Door");
 
             BaseSprite doorSprite = new BaseSprite(
             cellDoor,
@@ -399,14 +421,26 @@ namespace GameProject.GameScreens
             ItemSprite doorItemSprite = new ItemSprite(
             cDoor,
             doorSprite);
-            level.LevelItem.Add(doorItemSprite);
+            level.LevelItem.Add(doorItemSprite);*/
 
+            Door cDoor = new Door("Door",true,0,1,3,3);
+
+            BaseSprite doorSprite = new BaseSprite(
+            cellDoor,
+            new Rectangle(0, 0, 60, 84),
+            new Point(5, 1));
+
+            ItemSprite doorItemSprite = new ItemSprite(
+            cDoor,
+            doorSprite);
+            level.Doors.Add(doorItemSprite);
+
+            cDoor.addKey("Le Key");
 
 
             world.Levels.Add(level);
 
 
-            world.CurrentLevel = 0;
 
 
         }
@@ -652,10 +686,16 @@ namespace GameProject.GameScreens
 
 
             // create an interactive character on the screen
-            LevelItems char1 = new LevelItems("Jean Val Matt", true);
+            LevelItems char1 = new LevelItems("Jean Val Matt",1,2, true);
             //char1.requiredItem("Some Item");
-            LevelItems char2 = new LevelItems("Merlan", true);
-            //char2.requiredItem("Some Item");
+            //LevelItems char2 = new LevelItems("Merlan", 1,2,true);
+
+            char1.addKey("Some Second Key");
+            char1.addKey("Some Key");
+            Key item = new Key("wizard's hat");
+            char1.addItem(item);
+            item = new Key("wizard's hat 2");
+            char1.addItem(item);
 
             BaseSprite characterSprite2 = new BaseSprite(
             character2,
@@ -667,8 +707,9 @@ namespace GameProject.GameScreens
             level2.LevelItem.Add(charItemSprite2);
 
 
-            LevelItems guard1 = new LevelItems("Guard 1", true);
+            LevelItems guard1 = new LevelItems("Guard 1", 1,2,true);
             //guard1.requiredItem("Some Item");
+            guard1.addKey("Some Key");
 
             BaseSprite guardSprite1 = new BaseSprite(
             guard,
@@ -731,9 +772,13 @@ namespace GameProject.GameScreens
             party = new Party();
             Weapon wep = new Weapon("Awesomeness", "Sword", 300, 1, Hands.One, 100, 10, 200, 2);
             party.addWeapon(wep);
-            Key key = new Key("Some Key");
-            party.addKey(key);
 
+            Key key = new Key("Scepter");
+            party.addKey(key);
+            key = new Key("Some Key");
+            party.addKey(key);
+            key = new Key("Le Key");
+            party.addKey(key);
             Key key2 = new Key("Some Second Key");
             party.addKey(key2);
         }
@@ -747,110 +792,44 @@ namespace GameProject.GameScreens
                 StateManager.PushState(InventoryS);
             }
 
-            if (InputHandler.KeyDown(Keys.Enter) ||
-                  InputHandler.ButtonDown(Buttons.B, PlayerIndex.One))
+            if (InputHandler.KeyDown(Keys.Enter))
             {
-
-                Rectangle nextRectangle = new Rectangle(
-                (int)player.Sprite.Position.X,
-                (int)player.Sprite.Position.Y,
-                player.Sprite.Width,
-                player.Sprite.Height);
-                #region LevelOneStuff
-                int item1ID = (world.Levels[world.CurrentLevel]).CheckInteractionRadius(player.Sprite.Position);
-                if (item1ID >= 0)
-                {
-                    ItemSprite itemInWorld1 = world.Levels[world.CurrentLevel].LevelItem[item1ID];
-                    LevelItems level1Item = (LevelItems)itemInWorld1.InItem;
-                    if (item1ID == 0)
-                    {
-                        if (level1Item.isLocked)
-                        {
-                            Game.Window.Title = "chest 1";
-                        }
-
-                    }
-                    if (item1ID == 1)
-                    {
-
-                        Game.Window.Title = "Bed";
-
-                    }
-                    if (item1ID == 2)
-                    {
-                        Game.Window.Title = "Stool";
-                    }
-
-                    if (item1ID == 3)
-                    {
-
-                        Game.Window.Title = "Pot";
-
-
-                    }
-                    //else
-                    //{
-                    //    Game.Window.Title = "near no items";
-                    //}
-
-                }
-
-
-                #endregion
-
-                #region LevelTwoStuff
                 int item2ID = (world.Levels[world.CurrentLevel]).CheckInteractionRadius(player.Sprite.Position);
                 if (item2ID >= 0)
                 {
-                    ItemSprite itemInWorld2 = world.Levels[world.CurrentLevel].LevelItem[item2ID];
-                    LevelItems level2Item = (LevelItems)itemInWorld2.InItem;
-                    if (item2ID == 0)
+                    LevelItems level2Item = (LevelItems)world.Levels[world.CurrentLevel].LevelItem[item2ID].InItem;
+                    int ConvID=level2Item.interact(party.keyInv);
+                    if(ConvID>=0)
                     {
-                        if (level2Item.isLocked)
+                        inDialog = true;
+                        Conversation.StartConversation(ConvID);
+                    }
+                   
+                }
+                int DoorID = (world.Levels[world.CurrentLevel]).CheckDoorRadius(player.Sprite.Position);
+                if ( DoorID >= 0)
+                {
+
+                   // Game.Window.Title = "Door";
+                    Door door = (Door)world.Levels[world.CurrentLevel].Doors[DoorID].InItem;
+                    int level = door.interact(party.keyInv);
+                    if (level >= 0)
+                    {
+                        if (!door.IsLocked)
                         {
-                            Game.Window.Title = "chest 1";
+                            BaseSprite doorSprite = new BaseSprite(
+                                openCellDoor,
+                                new Rectangle(0, 0, 60, 84),
+                                new Point(5, 1));
+                            world.Levels[world.CurrentLevel].Doors[DoorID].Sprite = doorSprite;
                         }
 
+                        world.CurrentLevel = level;
+                        player.SetPosition(door.nextLevelX, door.nextLevelY);
                     }
-                    if (item2ID == 1)
-                    {
-                        if (level2Item.isLocked)
-                        {
-                            Game.Window.Title = "chest 2";
-                        }
-
-                    }
-
-                    if (item2ID == 7)
-                    {
-                        if (level2Item.CanTalk)
-                        {
-                            Game.Window.Title = "Wizard";
-                            inDialog = true;
-                            Conversation.StartConversation(1);
-                        }
-
-                    }
-                    else if (item2ID == 8)
-                    {
-                        if (level2Item.CanTalk)
-                        {
-                            Game.Window.Title = "Guard One";
-                        }
-                    }
-
-                    else if (item2ID == 10)
-                    {
-                        if (level2Item.CanTalk)
-                        {
-                            Game.Window.Title = "Guard Two";
-                        }
-                    }
-
+                    
                 }
 
-
-                #endregion
             }
 
         }

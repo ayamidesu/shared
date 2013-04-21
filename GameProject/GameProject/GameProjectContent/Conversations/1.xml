@@ -4,40 +4,17 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>You must answer a riddle correctly to continue</Message>
+      <Message>That is boo! Well done, keep up the good work</Message>
       <Choices Null="true" />
     </Item>
+
     <Item>
       <avatarState>Sad</avatarState>
       <AvatarIndex>2</AvatarIndex>
       <Message>
-        You dig a hole that is 2 yards wide, 3 yards long, and 1 yard deep. How many cubic feet of dirt are in it?
+        If there are five apples, and you take away three, how many do you have?
       </Message>
       <Choices Null="true" />
-    </Item>
-    
-    <Item>
-      <avatarState>Normal</avatarState>
-      <AvatarIndex>2</AvatarIndex>
-      <Message></Message>
-      <Choices>
-        <Item>
-          <Key>0</Key>
-          <Value>2</Value>
-        </Item>
-        <Item>
-          <Key>1</Key>
-          <Value>3</Value>
-        </Item>
-        <Item>
-          <Key>6</Key>
-          <Value>3</Value>
-        </Item>
-        <Item>
-          <Key>9</Key>
-          <Value>3</Value>
-        </Item>
-      </Choices>
     </Item>
   </Asset>
 </XnaContent>

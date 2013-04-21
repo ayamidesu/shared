@@ -55,6 +55,7 @@ namespace CoreComponents.ItemClasses
 
         public abstract object Clone();
 
+
         
         public override string ToString()
         {

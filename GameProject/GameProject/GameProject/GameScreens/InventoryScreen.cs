@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -90,7 +89,7 @@ namespace GameProject.GameScreens
                 {
                     if (c.Size.X > maxItemWidth)
                         maxItemWidth = c.Size.X;
-
+                    
                     c.Position = position;
                     position.Y += c.Size.Y + 5f;
                 }
