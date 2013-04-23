@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger:
+        Oh my goodness... are you real?
+        I've been stuck in this stupid maze for 
+        days now... can you help me? 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Yep.
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger:
+        Well, I guess I couldn't expect a knight in shining armour... 
+        but you're not even a knight in shiny.... anything
+        When was the last time you washed?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        HEY, enough with the insults. 
+        Do you want my help or not?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+       Stranger:
+       Oh, yes. 
+       Find me my GOLD key, and I will reward you greatly! 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Ugh... not ANOTHER goose chase. I'm beginning to hate this. 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        Would you STOP complaining, and just get on with it!
+      </Message>
+      <Choices Null="true" />
+    </Item>
+  </Asset>
+</XnaContent>

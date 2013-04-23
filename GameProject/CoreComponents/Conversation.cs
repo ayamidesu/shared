@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ConversationEngine;
+using CoreComponents;
 
 namespace DialogueEngine
 {
@@ -98,6 +99,7 @@ namespace DialogueEngine
             borderColor = bColor;
             splitIcon = sIcon;
             Content = content;
+            
         }
 
         #endregion
@@ -113,17 +115,9 @@ namespace DialogueEngine
             currentSpeakerIndex = 0;
             LoadConversation(conversationID);
 
-            // You can create conversations like this. The output will be in the DialogueEngine\DialogueEngine\bin\x86\Debug directory.
-            //ConversationSpeakers.Add(new Speaker(2, "This is a Test", Speaker.AvatarState.Normal, null));
-            //ConversationSpeakers.Add(new Speaker(2, "Reid Flamm, Golden Sun is a great game. You really should play the first and second. Like, really. Or Ian will smite you. Alright, now I'm just testing to see how many lines I can get in this dialogue box. Like, really. It's important, ok? Don't hate. I need to figure out when I can artificially break one guy talking into two or three boxes. Cause yeah, that's important. But oh man, how do I manage that with different fonts? That will be an issue. Hrm..... Oh hey, it works. Go figure!", Speaker.AvatarState.Sad, null));
-            //ConversationSpeakers.Add(new Speaker(2, "Return to the first speaker, and try ending with a preformatted string. And..... end.\n \n         -- Ian", Speaker.AvatarState.Surprised, null));
-            //ConversationSpeakers.Add(new Speaker(2, "This is just a fourth avatar state test.", Speaker.AvatarState.Angry, null));
-            //ConversationSpeakers.Add(new Speaker(2, "", Speaker.AvatarState.Normal, new Dictionary<string, int>() { { "Test Choice 1", 2 }, { "Test Choice 2", 2 }, { "Test Choice 3", 2 } })); // { Option String, Filename } 
-            //SaveConversation(2); // the number is the file name.
-
             CreateBox(ConversationSpeakers[currentSpeakerIndex].Message, 
                 new Rectangle(10, 250, 470, 150),
-                new Rectangle(15, 260, 470, 115),
+                new Rectangle(20, 280, 450, 100),
                 new Rectangle(120, 215, 0, 0),
                 backgroundImage);
         }
@@ -255,7 +249,7 @@ namespace DialogueEngine
             // Regular Message
             if (!ConversationSpeakers[currentSpeakerIndex].IsChoice)
             {
-                if (keyboardState.IsKeyDown(Keys.Space))
+                if (InputHandler.KeyPressed(Keys.Enter))
                 {
                     // Continue to next message
                     if (currentSpeakerIndex + 1 < ConversationSpeakers.Count)
@@ -274,6 +268,7 @@ namespace DialogueEngine
                     MessageShown = false;
                 }
                 choiceTimer = 0.0f;
+                InputHandler.Flush();
             }
             // A choice
             else
@@ -290,10 +285,11 @@ namespace DialogueEngine
                 }
 
                 // Handle Selection
-                if (keyboardState.IsKeyDown(Keys.Space))
+                if (InputHandler.KeyPressed(Keys.Enter))
                 {
                     soundEffect.Play();
                     LoadConversation(ConversationSpeakers[currentSpeakerIndex].Choices.ElementAt(currentChoiceSelection).Value);
+                    
                 }
             }
         }

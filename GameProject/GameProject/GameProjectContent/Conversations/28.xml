@@ -4,9 +4,21 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>Find me something of value and I MAY decide to not notice that you are no longer in your cell</Message>
+      <Message>
+        Mindus:
+        There's nothing here...
+      </Message>
       <Choices Null="true" />
     </Item>
-    
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        I've heard that before!
+      </Message>
+      <Choices Null="true" />
+    </Item>
+
   </Asset>
 </XnaContent>

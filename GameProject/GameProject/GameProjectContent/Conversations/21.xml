@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger
+        I've lost my lucky coin
+        If you return it to me I will help you
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Well thats a random request
+        Who are you?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger:
+        Sorry. My name is Cimba. 
+        I'm here for the 'murder' of my father. But it wasnt me
+        I promise. It was my uncle... Skizzle. 
+        He's a guard here. 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Riiiight, I believe you.
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Cimba:
+        No, really. It's true
+        Please find my coin and I'll give you something...
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Ypu:
+        Ok, I still don't believe you, but okay. 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+  </Asset>
+</XnaContent>

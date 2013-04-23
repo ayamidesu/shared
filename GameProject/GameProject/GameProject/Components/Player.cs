@@ -21,7 +21,6 @@ namespace GameProject.Components
         Camera camera;
         Game1 gameRef;
         AnimatedSprite sprite;
-        Rectangle playerrect;
 
         #endregion
 
@@ -40,15 +39,7 @@ namespace GameProject.Components
             set { sprite=value; }
         }
 
-        public Rectangle PlayerRect
-        {
-            get
-            {
-                playerrect.X = (int)sprite.Position.X;
-                playerrect.Y = (int)sprite.Position.Y;
-                return playerrect;
-            }
-        }
+       
         #endregion
 
         #region Constructor Region
@@ -59,11 +50,6 @@ namespace GameProject.Components
             camera = new Camera(gameRef.ScreenRectangle);
             this.sprite = sprite;
             camera.LockToSprite(sprite);
-            playerrect = new Rectangle(
-                    (int)sprite.Position.X,
-                    (int)sprite.Position.Y,
-                    sprite.Width,
-                    sprite.Height);
         }
         #endregion
 
@@ -120,7 +106,7 @@ namespace GameProject.Components
                     (int)nextLocation.X,
                     (int)nextLocation.Y,
                     sprite.Width-15,
-                    sprite.Height-10);
+                    sprite.Height-15);
                 bool colliding = (level).CheckSpriteCollision(nextRectangle);
                 if (colliding)
                 {

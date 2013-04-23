@@ -10,12 +10,14 @@ namespace CoreComponents.ItemClasses
 
         #region Field Region
 
+        static Random Random = new Random();
         List<string> keysRequired;
         bool isLocked;
         int inLevel;
         int toLevel;
         int NextLevelX;
         int NextLevelY;
+        
 
         #endregion
 
@@ -106,7 +108,8 @@ namespace CoreComponents.ItemClasses
             return toLevel;
 
         }
-   
+
+       
 
         public override object Clone()
         {

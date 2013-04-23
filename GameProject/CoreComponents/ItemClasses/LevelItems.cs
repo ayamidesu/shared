@@ -28,6 +28,7 @@ namespace CoreComponents.ItemClasses
         List<string> keysRequired;
         int ConversationBefore;
         int ConversationAfter;
+        int Conversations;
 
         #endregion
 
@@ -132,6 +133,18 @@ namespace CoreComponents.ItemClasses
             
         }
 
+        public LevelItems(string name, int conversationId ,bool locked)
+            : base(name, "")
+        {
+            isLocked = locked;
+            firstTime = true;
+            Conversations = conversationId;
+            base.InteractionRadius = ChestRadius;
+            ItemCollection = new List<Key>();
+            keysRequired = new List<string>();
+
+        }
+
 
         public LevelItems(string name)
             : base(name, "")
@@ -140,38 +153,13 @@ namespace CoreComponents.ItemClasses
             ItemCollection = new List<Key>();
         }
 
-         
+        
 
         #endregion
 
         #region Method Region
 
-    /*    public int interact(List<Key> Inventory)
-        {
-            if (isLocked)
-            {
-                if (conversationBefore >= 0)
-                {
-                    int ConvId = conversationBefore;
-                    conversationBefore = -1;
-                    return ConvId;
-                }
-                else
-                {
-                    UnlockChest(Inventory);
-                    if (!isLocked)
-                    {
-                        if (conversationAfter >= 0)
-                            return conversationAfter;
-                    }
-                }
-            }
-            return -1;
-                
-        }*/
-
-       
-
+  
        public int interact(List<Key> Inventory)
         {
 
@@ -189,8 +177,10 @@ namespace CoreComponents.ItemClasses
                     {
                         Inventory.Add(key);
                     }
-                   this.FirstTime = false;
-                   return ConversationAfter;
+                    this.FirstTime = false;
+                    int ConvId = conversationAfter;
+                    conversationAfter= -1;
+                    return ConvId;
                 }
             }
             else if(!this.FirstTime)
@@ -204,7 +194,9 @@ namespace CoreComponents.ItemClasses
                         {
                             Inventory.Add(key);
                         }
-                        return conversationAfter;
+                        int ConvId = conversationAfter;
+                        conversationAfter = -1;
+                        return ConvId;
                     }
                     else
                         return ConversationBefore;

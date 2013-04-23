@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        Congratulations! You found the RED key
+        Hey, wait, it looks like there's something else in here...
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        You found a potato skin! Horray, well that was worth your while.
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Do you have any idea how annoying you are?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        Yes, but not as much as you!
+      </Message>
+      <Choices Null="true" />
+    </Item>
+  </Asset>
+</XnaContent>

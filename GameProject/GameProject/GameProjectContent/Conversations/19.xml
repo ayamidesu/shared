@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger:
+        Hello there young Diamento 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        You know my name?
+        How? What? Who are you?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Stranger:
+        I am Merlan
+        All powerful wizard!
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        No. I think you're a stalker or something...
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Merlan:
+        You are a very skeptical person, aren't you?
+        Never the less.. 
+        Fetch my my hat, and I may just help you. 
+        
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        How are you all powerful if you can't even find your own hat? 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Merlan:
+        .....
+      </Message>
+      <Choices Null="true" />
+    </Item>
+
+  </Asset>
+</XnaContent>

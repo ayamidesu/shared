@@ -66,21 +66,21 @@ namespace GameProject.GameScreens
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
 
-            startGame = new LinkLabel();
+            startGame = new LinkLabel(Color.Blue);
             startGame.Text = "New Game";
             startGame.Size = startGame.SpriteFont.MeasureString(startGame.Text);
             startGame.Selected += new EventHandler(menuItem_Selected);
 
             ControlManager.Add(startGame);
 
-            loadGame = new LinkLabel();
+            loadGame = new LinkLabel(Color.Blue);
             loadGame.Text = "Load Game";
             loadGame.Size = loadGame.SpriteFont.MeasureString(loadGame.Text);
             loadGame.Selected += menuItem_Selected;
 
             ControlManager.Add(loadGame);
 
-            exitGame = new LinkLabel();
+            exitGame = new LinkLabel(Color.Blue);
             exitGame.Text = "Exit Game";
             exitGame.Size = exitGame.SpriteFont.MeasureString(exitGame.Text);
             exitGame.Selected += menuItem_Selected;
@@ -119,7 +119,7 @@ namespace GameProject.GameScreens
         {
             if (sender == startGame)
             {
-                StateManager.PushState(GameRef.GamePlayScreen);
+                StateManager.PushState(GameRef.Introscreen);
             }
 
             if (sender == loadGame)

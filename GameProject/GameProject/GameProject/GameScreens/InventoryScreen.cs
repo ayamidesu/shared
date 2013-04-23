@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -21,6 +22,7 @@ namespace GameProject.GameScreens
         PictureBox arrowImage;
         List<LinkLabel> Inventory;
         float maxItemWidth = 0f;
+        //float totalItemWidth = 10f;
         Party party;
 
         #endregion
@@ -52,7 +54,7 @@ namespace GameProject.GameScreens
             ContentManager Content = Game.Content;
 
             backgroundImage = new PictureBox(
-                Content.Load<Texture2D>(@"Backgrounds\titlescreen"),
+                Content.Load<Texture2D>(@"Backgrounds\inventory"),
                 GameRef.ScreenRectangle);
             ControlManager.Add(backgroundImage);
 
@@ -67,11 +69,11 @@ namespace GameProject.GameScreens
                     arrowTexture.Height));
             ControlManager.Add(arrowImage);
 
-            Inventory=new List<LinkLabel>();
+            Inventory = new List<LinkLabel>();
 
             foreach (Key key in party.keyInv)
             {
-                LinkLabel label = new LinkLabel();
+                LinkLabel label = new LinkLabel(Color.Chocolate);
                 label.Text = key.Name;
                 label.Size = label.SpriteFont.MeasureString(label.Text);
                 Inventory.Add(label);
@@ -82,16 +84,30 @@ namespace GameProject.GameScreens
 
             ControlManager.FocusChanged += new EventHandler(ControlManager_FocusChanged);
 
-            Vector2 position = new Vector2(10, 10);
-            foreach (Control c in ControlManager)
+
+            Vector2 position = new Vector2(55, 120);
+            Vector2 position2 = new Vector2(300, 120);
+
+            for (int count = 0; count < ControlManager.Count; count++)
             {
-                if (c is LinkLabel)
+                Control itemControl = ControlManager[count];
+
+                if (itemControl is LinkLabel)
                 {
-                    if (c.Size.X > maxItemWidth)
-                        maxItemWidth = c.Size.X;
-                    
-                    c.Position = position;
-                    position.Y += c.Size.Y + 5f;
+                    if (itemControl.Size.X > maxItemWidth)
+                    {
+                        maxItemWidth = itemControl.Size.X;
+                    }
+                    if (count <= 11)
+                    {
+                        itemControl.Position = position;
+                        position.Y += itemControl.Size.Y + 5f;
+                    }
+                    else if (count >= 12)
+                    {
+                        itemControl.Position = position2;
+                        position2.Y += itemControl.Size.Y + 5f;
+                    }
                 }
             }
 
@@ -101,20 +117,20 @@ namespace GameProject.GameScreens
         void ControlManager_FocusChanged(object sender, EventArgs e)
         {
             Control control = sender as Control;
-            Vector2 position = new Vector2(control.Position.X + maxItemWidth + 10f, control.Position.Y);
-            //Game.Window.Title="Change";
+            Vector2 position = new Vector2(control.Position.X + maxItemWidth + 30f, control.Position.Y);
             arrowImage.SetPosition(position);
         }
 
         private void menuItem_Selected(object sender, EventArgs e)
         {
-           
+
         }
 
         public override void Update(GameTime gameTime)
         {
             ControlManager.Update(gameTime, playerIndexInControl);
-            if (InputHandler.KeyDown(Keys.Escape))
+          
+            if (InputHandler.KeyPressed(Keys.I))
             {
                 StateManager.PopState();
             }

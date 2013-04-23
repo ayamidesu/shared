@@ -13,7 +13,7 @@ namespace CoreComponents.Controls
     {
         #region Fields and Properties
 
-        Color selectedColor = Color.Blue;
+        Color selectedColor;
 
         public Color SelectedColor
         {
@@ -25,8 +25,9 @@ namespace CoreComponents.Controls
 
         #region Constructor Region
 
-        public LinkLabel()
+        public LinkLabel(Color ColorSelected)
         {
+            selectedColor = ColorSelected;
             TabStop = true;
             HasFocus = false;
             Position = Vector2.Zero;
@@ -38,7 +39,7 @@ namespace CoreComponents.Controls
 
         public override void Update(GameTime gameTime)
         {
-        }
+        }  
 
         public override void Draw(SpriteBatch spriteBatch)
         {

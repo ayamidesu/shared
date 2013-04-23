@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        ...........
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Oh, thats real mature. Not even going to talk to me now?
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindous:
+        .........
+        ...
+        .
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+       You:
+       AGHHHHH
+       Fine
+       I'm SORRY for annoying you.
+       
+       I can't believe I'm talking to a dialogue box... that has feelings. 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Mindus:
+        Apology accepted.... just about. 
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        This chest is locked!
+        You need to find the ORANGE key
+      </Message>
+      <Choices Null="true" />
+    </Item>
+  </Asset>
+</XnaContent>

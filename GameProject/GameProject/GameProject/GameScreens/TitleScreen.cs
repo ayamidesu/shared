@@ -40,7 +40,7 @@ namespace GameProject.GameScreens
 
             base.LoadContent();
 
-            startLabel = new LinkLabel();
+            startLabel = new LinkLabel(Color.Blue);
             startLabel.Position = new Vector2(90, 400);
             startLabel.Text = "Press ENTER to begin";
             startLabel.Color = Color.White;

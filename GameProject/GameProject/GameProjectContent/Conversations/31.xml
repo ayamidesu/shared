@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent xmlns:Generic="System.Collections.Generic">
+  <Asset Type="Generic:List[ConversationEngine.Speaker]">
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        WhoHoo! Large haul this time! 
+        You have won... 
+        A Potion of AWESOMENESS
+        A Gold Key
+        ANDDDDD
+        A Mysterious Box
+        Whooo... spooky!
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Wait.... what?
+        What use is any of this to me you stupid dialogue box???
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        Well... SORRRRRY for being enthusiastic...
+        But, I don't know, you're the 'HERO' afterall...
+      </Message>
+      <Choices Null="true" />
+    </Item>
+
+  </Asset>
+</XnaContent>

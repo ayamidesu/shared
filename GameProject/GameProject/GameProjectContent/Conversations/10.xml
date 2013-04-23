@@ -4,9 +4,13 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>Find me something of value and I MAY decide to not notice that you are no longer in your cell</Message>
+      <Message>
+        Mindous:
+        Congratulations! You found the RED key
+        Hey, wait, it looks like there's something else 
+        in here...
+      </Message>
       <Choices Null="true" />
     </Item>
-    
   </Asset>
 </XnaContent>

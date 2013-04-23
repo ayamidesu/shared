@@ -4,16 +4,9 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>That is boo! Well done, keep up the good work</Message>
-      <Choices Null="true" />
-    </Item>
-
-    <Item>
-      <avatarState>Sad</avatarState>
-      <AvatarIndex>2</AvatarIndex>
       <Message>
-        If there are five apples, and you take away three, how many do you have?
-      </Message>
+      Find my wizard hat and return it to me. 
+      For your service I will help you!</Message>
       <Choices Null="true" />
     </Item>
   </Asset>

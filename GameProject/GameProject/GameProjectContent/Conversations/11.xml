@@ -4,9 +4,12 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>Find me something of value and I MAY decide to not notice that you are no longer in your cell</Message>
+      <Message>
+        Mindous:
+        This chest is locked!
+        You need to find the RED key
+      </Message>
       <Choices Null="true" />
     </Item>
-    
   </Asset>
 </XnaContent>

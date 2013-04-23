@@ -4,8 +4,7 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>Sorry, you didn't get any right. 
-      Come back later to try again.</Message>
+      <Message>You need to find a weapon or you will get us both killed</Message>
       <Choices Null="true" />
     </Item>
   </Asset>

@@ -114,7 +114,9 @@
   <ItemGroup>
     <Compile Include="GameScreens\BaseGameState.cs" />
     <Compile Include="GameScreens\GamePlayScreen.cs" />
+    <Compile Include="GameScreens\IntroScreen.cs" />
     <Compile Include="GameScreens\InventoryScreen.cs" />
+    <Compile Include="GameScreens\OutroScreen.cs" />
     <Compile Include="GameScreens\StartMenuScreen.cs" />
     <Compile Include="GameScreens\TitleScreen.cs" />
     <Compile Include="Components\Player.cs" />

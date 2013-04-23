@@ -30,6 +30,8 @@ namespace GameProject
         public TitleScreen TitleScreen;
         public StartMenuScreen StartMenuScreen;
         public GamePlayScreen GamePlayScreen;
+        public IntroScreen Introscreen;
+        public OutroScreen Outroscreen;
 
         #endregion
 
@@ -64,7 +66,9 @@ namespace GameProject
 
             TitleScreen = new TitleScreen(this, stateManager);
             StartMenuScreen = new StartMenuScreen(this, stateManager);
+            Introscreen = new IntroScreen(this, stateManager);
             GamePlayScreen = new GamePlayScreen(this, stateManager);
+            Outroscreen = new OutroScreen(this, stateManager);
 
             stateManager.ChangeState(TitleScreen);
         }

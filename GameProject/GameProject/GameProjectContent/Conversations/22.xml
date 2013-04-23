@@ -5,9 +5,19 @@
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
       <Message>
-      Thank you! 
-      A wizard is not truely himself without his hat. 
-      Here, have this...it is of more use to you than me</Message>
+        Cimba:
+        Thank you! Here is a BLUE key in return.
+        I will also join you in your quest
+      </Message>
+      <Choices Null="true" />
+    </Item>
+    <Item>
+      <avatarState>Normal</avatarState>
+      <AvatarIndex>2</AvatarIndex>
+      <Message>
+        You:
+        Cool
+      </Message>
       <Choices Null="true" />
     </Item>
   </Asset>

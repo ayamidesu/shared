@@ -4,40 +4,9 @@
     <Item>
       <avatarState>Normal</avatarState>
       <AvatarIndex>2</AvatarIndex>
-      <Message>That was not the right answer. Try this riddle instead...</Message>
+      <Message>I suppose this will do. I will let you leave, but the other guard may not be so lenient. You will need to talk to him.</Message>
       <Choices Null="true" />
     </Item>
-    <Item>
-      <avatarState>Sad</avatarState>
-      <AvatarIndex>2</AvatarIndex>
-      <Message>
-        A rancher has 33 head of cattle standing in a field, when suddenly a bolt of lightning kills all but 9 of them. How many head of cattle are left standing?
-      </Message>
-      <Choices Null="true" />
-    </Item>
-
-    <Item>
-      <avatarState>Normal</avatarState>
-      <AvatarIndex>2</AvatarIndex>
-      <Message></Message>
-      <Choices>
-        <Item>
-          <Key>33</Key>
-          <Value>5</Value>
-        </Item>
-        <Item>
-          <Key>24</Key>
-          <Value>5</Value>
-        </Item>
-        <Item>
-          <Key>9</Key>
-          <Value>2</Value>
-        </Item>
-        <Item>
-          <Key>0</Key>
-          <Value>5</Value>
-        </Item>
-      </Choices>
-    </Item>
+    
   </Asset>
 </XnaContent>

@@ -118,7 +118,7 @@ namespace CoreComponents.Controls
 
         public Control()
         {
-            Color = Color.White;
+            Color = Color.Purple;
             Enabled = true;
             Visible = true;
             SpriteFont = ControlManager.SpriteFont;
